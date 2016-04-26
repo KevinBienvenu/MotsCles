@@ -30,8 +30,8 @@ def tokenizeFromArrayOfTxt(array, toDisplay=False):
     total = len(array)
     i = 0
     for stri in array:
-#         if i>10:
-#             break
+        if i>100:
+            break
         i+=1
         if toDisplay and 100.0*i/total>percent:
             print percent,".",

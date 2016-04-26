@@ -2,24 +2,30 @@
     Agroalimentaire
         Produits biologiques
         Agriculture et sylviculture
-        Elevage et pêche
+        Elevage
+	Pêche
         Alimentation
-        Matériel agricole et forestier
+        Matériel agricole 
+	Matériel forestier
         Boissons
-        Matériel pour l'industrie agroalimentaire, le tabac et la restauration
+        Matériel pour l'industrie agroalimentaire, 
+        Matériel pour le tabac 
+        Matériel pour la restauration
     Chimie, Plastique, Santé
         Produits chimiques de base
         Produits en plastique
         Parachimie
         Matériel pour l'industrie chimique
-        Matériel de traitement du caoutchouc et du plastique
+        Traitement du caoutchouc 
+	Traitement du plastique
         Santé
         Produits en caoutchouc
     Construction, Bâtiment, Bois, Habitat
         Meubles, linge de maison et literie
         Eléments métalliques pour le bâtiment
         Chauffage, réfrigération et ventilation
-        Tuyauterie, robinetterie et contenants en métal
+        Tuyauterie
+	Robinetterie
         Serrurerie, alarmes et sécurité
         Quincaillerie, coutellerie et outillage
         Bois

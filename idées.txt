@@ -29,3 +29,16 @@ GENERER UN GRAPHE DE MOT CLE
 - relation de généricité (relation 'transport' vers 'transport de produit pharmaceutiques')
 - relation de polysémie (relation 'boulangerie' vers 'parisserie')
 
+IDEE : créer dynamiquement le graphe:
+1. Créer une liste de mots clés, les relier et faire un échantillonage vide.
+manuellement via mélange des listes pj et kompas (merger les listes)
+2. pour chaque code NAF : établir une liste de mots clés correspondants
+code Naf : liste de mots => trouver les mots clés du graphe
+modification dynamique
+
+CAS PROBLEMATIQUES / A PRENDRE EN COMPTE
+- description contenant 'travail avec tous secteurs: ' + énumération des secteurs
+	identifier le comportement dans la description ":",liste de termes non cohérents,
+	bannir ces mots de la description
+
+

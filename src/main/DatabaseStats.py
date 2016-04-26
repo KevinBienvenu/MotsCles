@@ -11,16 +11,21 @@ import TextProcessing as txtpr
 import IOFunctions
 import operator
 
+ordiPerso = True
+
 path0 = "C:/Users/Utilisateur/Google Drive/Camelia Tech/Donnees entreprise/Agregation B Reputation"
 path0a = "C:/Users/Utilisateur/Documents/GitHub/MotsCles/tests"
 
 path1 = "C:/Users/Kévin/Google Drive/Camelia Tech/Donnees entreprise/Agregation B Reputation"
 path1a = "C:/Users/Kévin/Documents/GitHub/MotsCles/tests"
 
-os.chdir(path0)
- 
+if ordiPerso:
+    os.chdir(path0)
+else:
+    os.chdir(path1) 
  
 direc = os.listdir(".")
+dictStemTokens = {}
 
 for fichier in direc:
     if fichier[:11]!="BRep_Step2_" or fichier[-3:]!="csv":
@@ -32,13 +37,16 @@ for fichier in direc:
     lines = txtpr.tokenizeFromArrayOfTxt(db.values, True)
     print "... done"
     print "computing dictionary...",
-    dictStemTokens = {}
     dictStemTokens = txtpr.computeDictToken(lines,dictStemTokens)
     print " done"
+    print "taille du dico :",len(dictStemTokens)
     lines = []
     print ""
-    
-os.chdir(path0a)
+
+if ordiPerso:
+    os.chdir(path0a)
+else:
+    os.chdir(path1a) 
     
 IOFunctions.saveDict(dictStemTokens, "dicFreqTokens.txt")
 
