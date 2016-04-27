@@ -9,38 +9,63 @@ import codecs
 import os
 from main import IOFunctions
 
-path0 = "C:/Users/Utilisateur/Documents/GitHub/MotsCles"
+def normalizeMotsClesKompass():
+    path0 = "C:/Users/Utilisateur/Documents/GitHub/MotsCles"
+    path1 = "C:/Users/KevinBienvenu/Documents/GitHub/MotsCles"
+    os.chdir(path1)
+    # first step compute normalization of kompass terms
+    dicMainClasses = {}
+    dicSubClasses = {}
+    dicArborescence = {}
+    with codecs.open("mots-cles-kompass.txt","r","utf-8") as fichier:
+        total = len(fichier.readlines())
+    with open("mots-cles-kompass.txt","r") as fichier:
+        lastClass = ""
+        percent = 1
+        j=0
+        for line in fichier:
+            j+=1
+            if 100.0*j/total>percent:
+                print percent,"% -",
+                percent+=1
+                if percent%10==0:
+                    print ""
+            if len(line)>10 and line[:4]=="    " and line[4:8]!="    ":
+                term = line[4:-1].lower()
+                lastClass = term
+                dicMainClasses[term] = max([IOFunctions.getNbResultBing(term) for i in range(10)])
+            elif len(line)>10 and line[:8]=="        ":
+                term = line[8:-1].lower()
+                dicArborescence[term] = lastClass
+                dicSubClasses[term] = max([IOFunctions.getNbResultBing(term) for i in range(5)])
+    print "done"
+    IOFunctions.saveDict(dicMainClasses, "dicMainClasses.txt")
+    IOFunctions.saveDict(dicSubClasses, "dicSubClasses.txt")
+    IOFunctions.saveDict(dicArborescence, "dicArborescence.txt")
 
-path1 = "C:/Users/KevinBienvenu/Documents/GitHub/MotsCles"
+def normalizeMotsClesPJ():
+    path0 = "C:/Users/Utilisateur/Documents/GitHub/MotsCles"
+    path1 = "C:/Users/KevinBienvenu/Documents/GitHub/MotsCles"
+    os.chdir(path1)
+    # first step compute normalization of kompass terms
+    dicMotsClesPJ = {}
+    with codecs.open("mots-cles-pj.txt","r","utf-8") as fichier:
+        total = len(fichier.readlines())
+    with open("mots-cles-pj.txt","r") as fichier:
+        percent = 1
+        j=0
+        for line in fichier:
+            j+=1
+            if 100.0*j/total>percent:
+                print percent,"% -",
+                percent+=1
+                if percent%10==0:
+                    print ""
+            if len(line)>10 and line[:4]=="    ":
+                term = line[4:-1].lower()
+                dicMotsClesPJ[term] = max([IOFunctions.getNbResultBing(term) for i in range(3)])
+    print "done"
+    IOFunctions.saveDict(dicMotsClesPJ, "dicMotsClesPJ.txt")
 
-os.chdir(path1)
 
-# first step compute normalization of kompass terms
-dicMainClasses = {}
-dicSubClasses = {}
-dicArborescence = {}
-with codecs.open("mots-cles-kompass.txt","r","utf-8") as fichier:
-    total = len(fichier.readlines())
-with open("mots-cles-kompass.txt","r") as fichier:
-    lastClass = ""
-    percent = 1
-    j=0
-    for line in fichier:
-        j+=1
-        if 100.0*j/total>percent:
-            print percent,"% -",
-            percent+=1
-            if percent%10==0:
-                print ""
-        if len(line)>10 and line[:4]=="    " and line[4:8]!="    ":
-            term = line[4:-1].lower()
-            lastClass = term
-            dicMainClasses[term] = max([IOFunctions.getNbResultBing(term) for i in range(10)])
-        elif len(line)>10 and line[:8]=="        ":
-            term = line[8:-1].lower()
-            dicArborescence[term] = lastClass
-            dicSubClasses[term] = max([IOFunctions.getNbResultBing(term) for i in range(5)])
-print "done"
-IOFunctions.saveDict(dicMainClasses, "dicMainClasses.txt")
-IOFunctions.saveDict(dicSubClasses, "dicSubClasses.txt")
-IOFunctions.saveDict(dicArborescence, "dicArborescence.txt")
+normalizeMotsClesPJ()
