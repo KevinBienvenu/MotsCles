@@ -1,14 +1,15 @@
 ﻿
     Agroalimentaire
         Produits biologiques
-        Agriculture et sylviculture
+        Agriculture 
+	Sylviculture
         Elevage
 	Pêche
         Alimentation
         Matériel agricole 
 	Matériel forestier
         Boissons
-        Matériel pour l'industrie agroalimentaire, 
+        Matériel pour l'industrie agroalimentaire
         Matériel pour le tabac 
         Matériel pour la restauration
     Chimie, Plastique, Santé
@@ -18,7 +19,6 @@
         Matériel pour l'industrie chimique
         Traitement du caoutchouc 
 	Traitement du plastique
-        Santé
         Produits en caoutchouc
     Construction, Bâtiment, Bois, Habitat
         Meubles, linge de maison et literie
@@ -30,60 +30,77 @@
         Quincaillerie, coutellerie et outillage
         Bois
         Bâtiment
-        Matériel pour les travaux publics et le bâtiment
+        Matériel pour les travaux publics
         Travaux publics et maritimes
     Energie, Environnement
         Eau et énergie
-        Energies renouvelables et environnement
+        Energies renouvelables
         Matériel de production d'hydrocarbures
     Enseignement, formation - Administrations
         Enseignement et formation
-        Organismes internationaux, administrations et associations
+        Organismes internationaux
+	Administrations et associations
         Services sociaux
     Informatique, Internet, R&D
         Recherche et essais
-        Informatique et Internet
-        Architectes, bureaux techniques et sociétés de conseil en ingénierie
+        Informatique
+	Internet
+        Architectes, bureaux techniques 
+	Sociétés de conseil en ingénierie
     Loisirs, Tourisme, Culture
-        Services de télécommunications, radio et télévision
-        Hôtellerie, tourisme et restauration
-        Industrie du spectacle et des loisirs. Culture
+        Services de télécommunications
+	Radio et télévision
+        Hôtellerie
+	Restauration
+        Spectacle et loisirs
         Sports et loisirs
     Matériel électrique, électronique, optique
         Matériel de mesure et d'essais
-        Matériel électronique. Matériel de télécommunications
-        Matériel électrique. Matériel nucléaire
-        Matériel d'optique, de photographie et de cinématographie
+        Matériel électronique
+	Matériel de télécommunications
+        Matériel électrique
+	Matériel nucléaire
+        Matériel d'optique
+	Matériel de photographie
+	Matériel de cinématographie
     Métallurgie, mécanique et sous-traitance
         Sous-traitance industrielle
         Produits métallurgiques
         Moteurs et pièces mécaniques
         Matériel pour le travail des métaux
     Négoce, grande distribution, détaillants
-        Négoce, grande distribution et commerce de détail
+        Négoce
+	Grande distribution 
+	Commerce de détail
     Papier, impression, édition
-        Matériel pour l'industrie du papier et du carton
         Impression et édition
-        Matériel pour l'imprimerie. Matériel de bureau. Matériel pour magasins
+        Matériel pour l'imprimerie
+	Matériel de bureau
+	Matériel pour magasins
         Papier et carton
     Produits minéraux
-        Verre, céramique et ciment
+        Verre
+	Céramique
+	Ciment
         Produits de carrières
-        Matériel de production de minerais et de minéraux (charbon, pierre, céramique, verre)
+        Matériel de production de minerais
         Minerais et minéraux
     Services aux entreprises
         Services aux entreprises
         Location
         Hygiène et nettoyage
-        Services financiers et assurances
+        Services financiers 	
+	Assurances
     Textile, Habillement, Cuir, Horlogerie, Bijouterie
-        Matériel pour l'industrie du textile, de l'habillement, du cuir et des chaussures
+        Matériel pour l'industrie du textile
         Cuir et maroquinerie
         Habillement et chaussures
         Textile
-        Pierres précieuses, bijouterie et horlogerie
+        Pierres précieuses
+	Bijouterie
+	Horlogerie
     Transports et logistique
         Transports et logistique
         Matériel de manutention et de stockage
-        Matériel d'emballage. Conditionnement
+        Matériel d'emballage
         Moyens de transport

@@ -11,13 +11,30 @@ import IOFunctions
 #  
 # IOFunctions.saveDict(dic, "a.txt")
 
-s = "lskdgj8sdf6"
+# IOFunctions.extractNAFDesc("01.50z")
 
-se = set(range(10))
+IOFunctions.getNbResultBing("bois habitat construction")
 
-for c in s:
-    try:
-        int(c)
-        print "vaneau"
-    except:
-        continue
+# s = "lskdgj8sdf6"
+# 
+# se = set(range(10))
+# 
+# for c in s:
+#     try:
+#         int(c)
+#         print "vaneau"
+#     except:
+#         continue
+
+# s = "<tr><th>Cette sous-classe comprend</th><th>Cette sous-classe comprend aussi</th></tr> <tr><td>- la culture du tabac</td><td>&nbsp;</td></tr>"
+
+
+
+
+
+
+
+
+
+
+
