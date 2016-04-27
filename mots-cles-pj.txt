@@ -1,4 +1,4 @@
-
+﻿
     Abat jour
     Abattoirs de volailles
     Abris de jardin
@@ -8,22 +8,17 @@
     Achat métaux
     Achat or
     Acier
-    Acier : produits siderurgiques, transformés (fabrication, négoc)
     Acousticien
     Acupuncteur
     Addictologue
     Administrateur de biens
-    Administrateurs de biens et syndics de copropriétés
     Administration
     Adoucisseur
     Aérographe
     Aéronautique
-    Aéroport d'orly
-    Aéroport orly
     Affaires familiales
-    Affichage électronique et journaux lumineux fabrication, vente, installation
+    Affichage électronique
     Affutage
-    Affuteur
     Agence anpe
     Agence d'hôtesses
     Agence d'intérim
@@ -48,19 +43,16 @@
     Agence traduction
     Agence travail temporaire
     Agence web
-    Agences d'intérim, d' emploi de l'hôtellerie, de la restauration
-
+    Agences d'intérim, d'emploi de l'hôtellerie, de la restauration
     Agences d'intérim, d'emploi de l'industrie
     Agences d'intérim, d'emploi informatiques
     Agences de voyages
     Agences immobilières
-    Agenda
     Agent commercial
     Agent d'entretien
     Agent de change
     Agent de sécurité
     Agriculteur
-    Agriculteurs, agriculteurs-eleveurs
     Aide à domicile
     Aide sociale à l'enfance
     Aide soignante
@@ -71,17 +63,14 @@
     Alimentation
     Alimentation animaux
     Alimentation asiatique
-    Alimentation chinoise
     Alimentation exotique
     Allemand
     Allergologue
-    Allocation familiale
     Amaigrissement
     Ambulance
     Ambulancier
     Aménagement comble
     Amiante
-    Analyse eau
     Andocrinologue
     Andrologue
     Anesthesiste
@@ -100,7 +89,6 @@
     Appartement à louer
     Apprentissage
     Arboriculteur
-
     Archerie
     Architecte
     Architecte dplg
@@ -129,8 +117,8 @@
     Artisan peintre
     Artisan plombier
     Artisans du bâtiment
-    Arts graphiques, arts plastiques (cours)
-    Arts graphiques, arts plastiques (matériel)
+    Arts graphiques
+    Arts plastiques
     Ascenseur
     Ascensoriste
     Asphalte
@@ -141,60 +129,44 @@
     Assistance sociale
     Assistante maternelle
     Assistante sociale
-    Association
-    Association admr
     Association aide à domicile
     Association aide à la personne
-    Association d'aide à domicile
     Association de tutelle
     Association intermédiaire
-    Association tutélaire
-    Association tutelle
-    Associations humanitaires, d'entraide, d'action sociale
-
     Assurance
     Assurance automobile
     Assurance maladie
-    Assurances iard
     Astrologue
     Atelier mécanique
     Ateliers municipaux
-    Aube
     Audioprothésiste
     Auriculothérapeute
     Auriculothérapie
     Auto école
     Auto école poid lourd
-    Autocariste
-    Autocars (transports touristiques)
+    Autocars
     Automatisme
     Automatisme de portail
-    Automatisme portail
     Automobile
     Autoradio
-    Autoradios (vente, pose)
-    Autoroute
-    Autoroutes (exploitation, gendarmerie, police)
+    Autoroutes
     Auxiliaire de vie
     Avocat
-    Avocat divorce
     Avocat droit de la famille
     Avocat droit du travail
     Avocat droit immobilier
     Avocat fiscaliste
     Avocat pour divorce
-    Avocats
     Avocats au conseil d'état et à la cour de cassation
-    Avocats specialistes en droit commercial
-    Avocats specialistes en droit de l'environnement
-    Avocats specialistes en droit des mesures d'execution
-    Avocats specialistes en droit des personnes
-    Avocats specialistes en droit des sociétés
-    Avocats specialistes en droit immobilier
-    Avocats specialistes en droit rural
+    Droit commercial
+    Droit de l'environnement
+    Droit des mesures d'execution
+    Droit des personnes
+    Droit des sociétés
+    Droit immobilier
+    Droit rural
     Baby foot
     Baby sitting
-    Bâches
     Badminton
     Bagages
     Bailleur social
@@ -202,7 +174,6 @@
     Balance
     Balayage industriel
     Balayeuse
-
     Balneo
     Banque
     Banque marocaine
@@ -213,8 +184,6 @@
     Bar de nuit
     Bar pmu
     Bar tabac
-    Bar tabac pmu
-    Bar tabac presse
     Barbecue
     Barbier
     Bardage
@@ -228,32 +197,26 @@
     Batteries, piles, accumulateurs
     Bébé nageur
     Béton
-    Béton : sciage et percement (entreprises)
     Béton cire
     Béton décoratif
     Béton desactive
     Béton préfabriqué
     Béton prêt à l'emploi
     Bibliothèque
-    Bichons maltais (élevage)
+    Bichons maltais
     Bijouterie
-    Bijouterie (transformation, réparation)
-    Bijouterie fantaisie (fabrication, gros)
-    Bijouterie, joaillerie (detail)
     Bijoutier horloger
     Bilboquet
     Billard
     Bitume
     Blanchisserie industrielle
-    Bobinage, réparation de matériel électrique professionnel
+    Bobinage
     Bois
     Bois au detail
     Bois de chauffage
     Bois detail
     Bois exotique
-    Boissons non alcoolisées (fabrication, gros)
-    Boite d'intérime
-
+    Boissons non alcoolisées
     Boite de nuit
     Bonsai
     Bordeaux
@@ -265,18 +228,14 @@
     Boucherie chevaline
     Boucherie hallal
     Boucherie traiteur
-    Boucheries chevalines
     Boulanger
     Boulanger patissier
     Boulangerie
     Boulangerie bio
     Boulangerie industrielle
     Boulangerie patisserie
-    Boulangeries-patisseries (terminaux de cuisson)
-    Boulangeries-patisseries bio (artisans)
-    Boulangeries, patisseries, viennoiseries industrielles (fabrication, gros)
     Boulodrome
-    Boulonnerie, visserie, clouterie
+    Boulonnerie, visserie
     Bouquiniste
     Boutique asiatique
     Boutique chaussures
@@ -289,11 +248,10 @@
     Boutique informatique
     Boutique mariage
     Boutique prêt à porter
-    Boutiques exotiques, articles d'orient
+    Boutique exotique
     Bowling
     Boxe anglaise (clubs)
     Boxe francaise (clubs)
-    Boxe thai
     Boxe thai (clubs)
     Brasserie
     Bric à brac
@@ -304,12 +262,9 @@
     Brocante
     Brocanteur
     Broderie, marquage à facon
-
     Brodeur
     Broyage, criblage, concassage
     Brulerie
-    Btp
-    Bucheron
     Bucheronnage
     Buraliste
     Bureau change
@@ -322,7 +277,6 @@
     Bureau de tabac
     Bureau de tabac presse
     Bureau service national
-    Bureaux de change
     Bus
     Cabaret
     Cabine téléphonique
@@ -354,17 +308,10 @@
     Cabinet esthétique
     Cabinet expert comptable
     Cabinet imagerie médicale
-    Cabinet infirmier
-
-    Cabinet infirmière
-    Cabinet infirmières
-    Cabinet infirmiers
-    Cabinet kiné
-    Cabinet kinésithérapeute
-    Cabinet kinésithérapie
+    Cabinet d'infirmière
+    Cabinet de kinésithérapeute
     Cabinet médical
-    Cabinet notaire
-    Cabinet notarial
+    Cabinet de notaire
     Cabinet ophtalmologie
     Cabinet radiologique
     Café
@@ -379,7 +326,7 @@
     Camp militaire
     Camping
     Camping gaz
-    Canalisations (pose, entretien)
+    Canalisations
     Cancerologue
     Cannage
     Cannage, rempaillage
@@ -393,8 +340,6 @@
     Carreleur
     Carrière
     Carrière de sable
-    Carrière sable
-    Carrosserie
     Carrosserie auto
     Carrosserie industrielle
     Carrossier peintre
@@ -402,11 +347,8 @@
     Carte grise
     Carterie
     Cartomancienne
-    Carton ondule (fabrication)
-    Cartonnage (fabrication)
+    Carton ondule
     Cartonnerie
-    Cartonnier
-
     Caserne des pompiers
     Caserne pompier
     Caserne pompiers
@@ -424,7 +366,7 @@
     Cave à vins
     Cave coopérative
     Caviste
-    Cd, dvd (duplication)
+    Duplication de CD, DVD
     Centrale béton
     Centrale d'achat
     Centre amincissement
@@ -455,13 +397,10 @@
     Centre de massage
     Centre de paiement
     Centre de pathologie
-    Centre de pmi
     Centre de radiographie
-
     Centre de radiologie
     Centre de radiothérapie
     Centre de réeducation
-    Centre de réeducation fonctionnelle
     Centre de rétention
     Centre de santé dentaire
     Centre de sénologie
@@ -477,12 +416,10 @@
     Centre handicape
     Centre hospitalier
     Centre imagerie médicale
-    Centre irm
     Centre médical
     Centre médicaux psychologique
     Centre médico sportif
     Centre mutualiste dentaire
-    Centre pmi
     Centre pour handicapés
     Centre psychologique
     Centre radiologique
@@ -491,11 +428,10 @@
     Centres autos, entretien rapide
     Centres de vacances et de loisirs pour enfants
     Cercle militaire
-    Chaînes (fabrication)
     Chambre départementale des huissiers
     Chambre froide
     Chambres d'hôtes
-    Chambres de commerce, d'industrie, de métiers, d'artisanat, d'agriculture
+    Chambres de commerce
     Chantier naval
     Chape liquide
     Chapeaux
@@ -505,18 +441,13 @@
     Charbon
     Charcuterie
     Charcuterie traiteur
-    Charcutier traiteur
     Chariot élévateur
     Charpente bois
-
     Charpente couverture
     Charpente métallique
-    Charpentier
-    Charpentier couvreur
-    Chaudières industrielles (vente, installation, maintenance)
+    Chaudières industrielles
     Chaudronnerie industrielle
     Chaudronnier
-    Chauffage (exploitation)
     Chauffage dépannage
     Chauffagiste
     Chauffe eau
@@ -524,14 +455,12 @@
     Chaussures
     Chaussures bébé
     Chaussures de sécurité
-    Chaussures enfant
     Chaussures enfants
     Chaussures orthopédiques
     Cheminées d'intérieur
     Cheministe
     Chemisage, tubage de conduits de fumée
     Chiropracteur
-    Chiropractor
     Chirurgie de la main
     Chirurgien dentiste
     Chirurgien esthétique
@@ -540,8 +469,6 @@
     Chirurgien visceral
     Chocolatier
     Chromage
-    Chrome
-    Chromeur
     Cidrerie
     Cinéma
     Cintrage
@@ -559,7 +486,6 @@
     Club de boxe
     Club de football
     Club des aines
-
     Club fitness
     Club remise en forme
     Coach sportif
@@ -595,10 +521,7 @@
     Compagnie des eaux
     Comportementaliste
     Comportementaliste animalier
-    Composant électronique
     Composants électroniques
-    Composants électroniques passifs (fabrication, gros)
-    Compresseur
     Compresseurs
     Comptable
     Concessionnaire agricole
@@ -607,10 +530,8 @@
     Concessionnaire moto
     Concierge
     Conciliateur de justice
-    Conseil conjugal
     Conseil en gestion de patrimoine
     Conseiller conjugal
-
     Conseiller d'orientation
     Conseiller général
     Constructeur maison bois
@@ -625,7 +546,7 @@
     Contrôle technique auto
     Contrôle technique de véhicules
     Contrôle technique poids lourds
-    Contrôles de bâtiment (construction, sécurité)
+    Contrôles de bâtiment
     Coopérative agricole
     Coopérative maritime
     Coopérative vinicole
@@ -635,7 +556,7 @@
     Cordonnerie
     Cordonnier
     Costume mariage
-    Costumiers (costumes de scene)
+    Costumiers
     Courroie
     Cours d'art floral
     Cours de chant
@@ -653,26 +574,22 @@
     Couscous à emporter
     Coutellerie
     Couture retouche
-    Couture retouches
-    Couture, confection (faconniers)
-    Couture, haute couture (creation)
-    Couturière
+    Couture, confection
+    Couture, haute couture
     Couverture zinguerie
     Couverture, toiture en chaume
-    Couvreur
     Couvreur charpentier
-
     Couvreur toiture
     Création de site internet
+    Création de widgets ronds
     Crèche
     Crèche halte garderie
     Crèche parentale
-    Crèches, garderies
     Crédit à la consommation
     Crêperie
     Crêpes, galettes à emporter
     Crépis
-    Crustaces, coquillages, poissons (gros)
+    Crustaces, coquillages, poissons
     Cueillette
     Cuirs, crépins (négoce)
     Cuisine

@@ -39,17 +39,20 @@ def tokenizeFromArrayOfTxt(array, toDisplay=False):
                 print ""
             percent+=1
         if str(stri[0])!="nan":
-            lines.append(nltkprocess(str(stri[0])))
+            lines.append(nltkprocess(str(stri[0]).decode("utf-8")))
     return lines
 
 def nltkprocess(srctxt):
     french_stopwords = set(stopwords.words('french'))
     stem = nltk.stem.snowball.FrenchStemmer()
-    tokens = nltk.word_tokenize(srctxt.decode('utf8').lower(),'french')
+    tokens = nltk.word_tokenize(srctxt.lower(),'french')
     tokens = [token for token in tokens if len(token)>1 and token not in french_stopwords]
     stems = []
     for token in tokens:
-        stems.append(stem.stem(token))
+        try:
+            float(token)
+        except:
+            stems.append(stem.stem(token))
     return stems
      
 def computeDictToken(lines, dictToken = {}):  
