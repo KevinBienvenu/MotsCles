@@ -9,9 +9,11 @@ import codecs
 import os
 from main import IOFunctions
 
-path = "C:/Users/Utilisateur/Documents/GitHub/MotsCles"
+path0 = "C:/Users/Utilisateur/Documents/GitHub/MotsCles"
 
-os.chdir(path)
+path1 = "C:/Users/KevinBienvenu/Documents/GitHub/MotsCles"
+
+os.chdir(path1)
 
 # first step compute normalization of kompass terms
 dicMainClasses = {}
@@ -19,15 +21,17 @@ dicSubClasses = {}
 dicArborescence = {}
 with codecs.open("mots-cles-kompass.txt","r","utf-8") as fichier:
     total = len(fichier.readlines())
-with codecs.open("mots-cles-kompass.txt","r","utf-8") as fichier:
+with open("mots-cles-kompass.txt","r") as fichier:
     lastClass = ""
     percent = 1
-    i=0
+    j=0
     for line in fichier:
-        i+=1
-        if 100.0*i/total>percent:
+        j+=1
+        if 100.0*j/total>percent:
             print percent,"% -",
             percent+=1
+            if percent%10==0:
+                print ""
         if len(line)>10 and line[:4]=="    " and line[4:8]!="    ":
             term = line[4:-1].lower()
             lastClass = term

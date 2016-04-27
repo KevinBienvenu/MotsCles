@@ -7,6 +7,7 @@ Created on 25 avr. 2016
 
 import urllib
 import urlparse
+import codecs
 import unidecode
 from HTMLParser import HTMLParser
 
@@ -16,12 +17,12 @@ from main.TextProcessing import tokenizeFromArrayOfTxt, nltkprocess
 def saveDict(dic,filename):
     with open(filename,'w') as fichier:
         for item in dic.items():
-            print item[0]
-            fichier.write(str(item[0].encode("utf-8"))+"-"+str(item[1])+"\n")
+            fichier.write(str(item[0])+"-"+str(item[1])+"\n")
+
 
 def importDict(filename):
     dic = {}
-    with open(filename,'r') as fichier:
+    with codecs.open(filename,'r','utf-8') as fichier:
         for line in fichier:
             tab = line.split("-")
             dic[tab[0]] = tab[1]
@@ -59,15 +60,19 @@ def getNbResultBing(searchword):
         searchword = searchword[:searchword.find(" ")]+"+"+searchword[searchword.find(" ")+1:]
     while searchword.find(",")!=-1:
         searchword = searchword[:searchword.find(",")]+searchword[searchword.find(",")+1:]
-    url = unidecode.unidecode("https://www.bing.com/search?q="+searchword)
-    page = urllib.urlopen(url)
-    for line in page:
-        i = line.find(" results<")
-        if i!=-1:
-            s = line[i-13:i]
-            s = s[s.find(">")+1:]
-            while s.find(",")!=-1:
-                s = s[:s.find(",")]+s[s.find(",")+1:]
+    url = "https://www.bing.com/search?q="+searchword
+#     url = unidecode.unidecode(url)
+    try:
+        page = urllib.urlopen(url)
+        for line in page:
+            i = line.find(" results<")
+            if i!=-1:
+                s = line[i-13:i]
+                s = s[s.find(">")+1:]
+                while s.find(",")!=-1:
+                    s = s[:s.find(",")]+s[s.find(",")+1:]
+    except:
+        s = "-1"
     return int(s)
                    
                     

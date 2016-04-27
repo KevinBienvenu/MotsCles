@@ -7,13 +7,13 @@ Created on 25 avr. 2016
 
 import IOFunctions
 
-# dic = {"vané".decode("utf-8"):1,"éé".decode("utf-8"):2}
-#  
-# IOFunctions.saveDict(dic, "a.txt")
+dic = {"vané":1,"éé":2}
+  
+IOFunctions.saveDict(dic, "a.txt")
 
 # IOFunctions.extractNAFDesc("01.50z")
 
-IOFunctions.getNbResultBing("bois habitat construction")
+# IOFunctions.getNbResultBing("bois habitat construction")
 
 # s = "lskdgj8sdf6"
 # 
