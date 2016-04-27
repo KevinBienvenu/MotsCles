@@ -11,13 +11,13 @@ import TextProcessing as txtpr
 import IOFunctions
 import operator
 
-ordiPerso = True
+ordiPerso = False
 
 path0 = "C:/Users/Utilisateur/Google Drive/Camelia Tech/Donnees entreprise/Agregation B Reputation"
 path0a = "C:/Users/Utilisateur/Documents/GitHub/MotsCles/tests"
 
-path1 = "C:/Users/Kévin/Google Drive/Camelia Tech/Donnees entreprise/Agregation B Reputation"
-path1a = "C:/Users/Kévin/Documents/GitHub/MotsCles/tests"
+path1 = "C:/Users/KevinBienvenu/Google Drive/Camelia Tech/Donnees entreprise/Agregation B Reputation"
+path1a = "C:/Users/KevinBienvenu/Documents/GitHub/MotsCles/tests"
 
 if ordiPerso:
     os.chdir(path0)

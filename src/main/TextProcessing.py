@@ -30,8 +30,8 @@ def tokenizeFromArrayOfTxt(array, toDisplay=False):
     total = len(array)
     i = 0
     for stri in array:
-        if i>100:
-            break
+#         if i>10:
+#             break
         i+=1
         if toDisplay and 100.0*i/total>percent:
             print percent,".",
@@ -70,7 +70,8 @@ def computeDictToken(lines, dictToken = {}):
             except:
                 continue
     for toR in toRemove:
-        del dictToken[toR]
+        if toR in dictToken.keys():
+            del dictToken[toR]
     return dictToken
 
                          
