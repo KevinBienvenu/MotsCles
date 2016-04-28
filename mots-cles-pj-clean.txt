@@ -1,4 +1,4 @@
-    Parodontiste:parodontiste-
+﻿    Parodontiste:parodontiste-
     Club de football:club-football-
     Tabac:tabac-
     Compresseurs:compresseurs-
@@ -8,7 +8,7 @@
     Ostéopathes:ostéopathes-
     Office de tourisme:office-tourisme-
     Cabinet de radiographie:cabinet-radiographie-
-    Médecins : chirurgie de la main:médecins-chirurgie-main-
+    Médecins chirurgie de la main:médecins-chirurgie-main-
     Hivernage:hivernage-
     Extension maison:extension-maison-
     Hotels:hotels-

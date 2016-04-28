@@ -9,6 +9,7 @@ import codecs
 from nltk.corpus import stopwords
 import nltk.stem.snowball
 import numpy as np
+import unidecode
 
 def extractFromTxt(filename,toDisplay = False):
     '''
@@ -45,14 +46,23 @@ def tokenizeFromArrayOfTxt(array, toDisplay=False):
 def nltkprocess(srctxt):
     french_stopwords = set(stopwords.words('french'))
     stem = nltk.stem.snowball.FrenchStemmer()
-    tokens = nltk.word_tokenize(srctxt.lower(),'french')
+    try:
+        tokens = nltk.word_tokenize(srctxt.lower(),'french')
+    except:
+        tokens = nltk.word_tokenize(unidecode.unidecode(srctxt).lower(),'french')
     tokens = [token for token in tokens if len(token)>1 and token not in french_stopwords]
     stems = []
     for token in tokens:
         try:
             float(token)
         except:
-            stems.append(stem.stem(token))
+            if token[0:2]=="d'":
+                token = token[2:]
+            if len(token)>3:
+                try:
+                    stems.append(stem.stem(token[:-1])) 
+                except:
+                    stems.append(stem.stem(unidecode.unidecode(token[:-1])))        
     return stems
      
 def computeDictToken(lines, dictToken = {}):  

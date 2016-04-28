@@ -14,18 +14,22 @@ from HTMLParser import HTMLParser
 from main.TextProcessing import tokenizeFromArrayOfTxt, nltkprocess
 
 
+
 def saveDict(dic,filename):
     with open(filename,'w') as fichier:
         for item in dic.items():
             fichier.write(str(item[0])+"-"+str(item[1])+"\n")
-
 
 def importDict(filename):
     dic = {}
     with codecs.open(filename,'r','utf-8') as fichier:
         for line in fichier:
             tab = line.split("-")
-            dic[tab[0]] = tab[1]
+            s = tab[0]
+            for i in range(1,len(tab)-1):
+                s+=tab[i]
+            dic[s] = tab[-1]
+    return dic
             
 def extractNAFDesc(codeNAF):
     page = urllib.urlopen("http://www.insee.fr/fr/methodes/default.asp?page=nomenclatures/naf2008/n5_"+codeNAF+".htm")
@@ -55,13 +59,15 @@ def extractNAFDesc(codeNAF):
         comprendpas = nltkprocess(comprendpas[0])
     return (codeNAF,comprend,comprendpas)
                     
-def getNbResultBing(searchword):
+def getNbResultBing(searchword, toPrint=False):
     while searchword.find(" ")!=-1:
         searchword = searchword[:searchword.find(" ")]+"+"+searchword[searchword.find(" ")+1:]
     while searchword.find(",")!=-1:
         searchword = searchword[:searchword.find(",")]+searchword[searchword.find(",")+1:]
-    url = "https://www.bing.com/search?q="+searchword
-#     url = unidecode.unidecode(url)
+    url = ("https://www.bing.com/search?q="+unidecode.unidecode(searchword))
+    s = "-1"
+    if toPrint:
+        print "requete bing:",searchword,"-",
     try:
         page = urllib.urlopen(url)
         for line in page:
@@ -72,11 +78,21 @@ def getNbResultBing(searchword):
                 while s.find(",")!=-1:
                     s = s[:s.find(",")]+s[s.find(",")+1:]
     except:
-        s = "-1"
+        print "erreur"
+        pass
+    if toPrint:
+        print int(s),"résultats"
     return int(s)
                    
-                    
-                    
+def saveGraphNode(graphNode, filename):
+    with codecs.open(filename,"w","utf-8") as fichier:
+        for node in graphNode:
+            fichier.write(str(node)+"_"+graphNode[node][0]+"_"+str(graphNode[node][1])+"_")
+            for codeNAF in graphNode[node][2]:
+                fichier.write(str(codeNAF)+"-"+str(graphNode[node][2][codeNAF]))
+                fichier.write(",")
+            fichier.write("\n")
+                           
                     
                     
                     
