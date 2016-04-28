@@ -277,6 +277,7 @@ def extractDescriptionFromCSV(filename):
                 print ""
         if str(line[1])!="nan":
             extractDescription(line[1],line[0])
+
      
 # (dicPj,dicMainKompass,dicSubKompass) = importDicts()
 # 

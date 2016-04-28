@@ -92,7 +92,19 @@ def saveGraphNode(graphNode, filename):
                 fichier.write(str(codeNAF)+"-"+str(graphNode[node][2][codeNAF]))
                 fichier.write(",")
             fichier.write("\n")
-                           
+
+def importGraphNode(filename):
+    graphNode = {}
+    dicIdNode = {}
+    with codecs.open(filename,"r","utf-8") as fichier:
+        for line in fichier:
+            tab = line.split("_")
+            dicIdNode[tab[1]] = int(tab[0])
+            graphNode[int(tab[0])] = [tab[1],float(tab[2]),{}]
+            for element in tab[3].split(','):
+                tab1 = element.split("-")
+                graphNode[int(tab[0])][2][tab1[0]] = float(tab1[1])
+                            
                     
                     
                     
