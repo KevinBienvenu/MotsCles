@@ -21,8 +21,8 @@ path1 = "C:/Users/KevinBienvenu/Documents/GitHub/MotsCles"
 pathAgreg0 = "C:/Users/Utilisateur/Google Drive/Camelia Tech/Donnees entreprise/Agregation B Reputation"
 pathAgreg1 = "C:/Users/KevinBienvenu/Google Drive/Camelia Tech/Donnees entreprise/Agregation B Reputation"
 
-path = path0
-pathAgreg = pathAgreg0
+path = path1
+pathAgreg = pathAgreg1
 
 def normalizeMotsClesKompass():
     path0 = "C:/Users/Utilisateur/Documents/GitHub/MotsCles/dicts"
