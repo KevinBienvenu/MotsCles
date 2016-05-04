@@ -21,8 +21,8 @@ path1 = "C:/Users/KevinBienvenu/Documents/GitHub/MotsCles"
 pathAgreg0 = "C:/Users/Utilisateur/Google Drive/Camelia Tech/Donnees entreprise/Agregation B Reputation"
 pathAgreg1 = "C:/Users/KevinBienvenu/Google Drive/Camelia Tech/Donnees entreprise/Agregation B Reputation"
 
-path = path1
-pathAgreg = pathAgreg1
+path = path0
+pathAgreg = pathAgreg0
 
 def normalizeMotsClesKompass():
     path0 = "C:/Users/Utilisateur/Documents/GitHub/MotsCles/dicts"
@@ -249,7 +249,7 @@ def extractDescription(desc,codeNAF):
 
 def importKeywords():
     os.chdir(path)
-    with codecs.open("keyword.csv","r","utf-8") as fichier:
+    with codecs.open("motscles/mots-cles.txt","r","utf-8") as fichier:
         for line in fichier:
             if len(line)>1:
                 keywords[line[:-1]] = TextProcessing.nltkprocess(line[:-1])
@@ -277,6 +277,7 @@ def extractDescriptionFromCSV(filename):
                 print ""
         if str(line[1])!="nan":
             extractDescription(line[1],line[0])
+        break
 
      
 # (dicPj,dicMainKompass,dicSubKompass) = importDicts()
@@ -291,16 +292,42 @@ def extractDescriptionFromCSV(filename):
 graphNodes = {}
 graphEdges = {}
 dicIdNodes = {}
-
+ 
 keywords = {}
 
 importKeywords()
 
-extractDescriptionFromCSV("BRep_Step2_0_1000000.csv")
+fileNameVec = ['BRep_Step2_0_1000000.csv', 
+               'BRep_Step2_1000000_2000000.csv', 
+               'BRep_Step2_2000000_3000000.csv',
+              'BRep_Step2_3000000_4000000.csv', 
+              'BRep_Step2_4000000_5000000.csv', 
+              'BRep_Step2_5000000_6000000.csv',
+              'BRep_Step2_6000000_7000000.csv', 
+              'BRep_Step2_7000000_8000000.csv', 
+              'BRep_Step2_8000000_9176180.csv']
+
+for filename in fileNameVec:
+    print "extracting file:",filename
+    extractDescriptionFromCSV(filename)
 
 os.chdir(path)
+IOFunctions.saveGraphNode(graphNodes, "graphNode.txt")
+IOFunctions.saveGraphEdge(graphEdges, "graphEdge.txt")
 
-IOFunctions.saveGraphNode(graphNodes, "vaneau.txt")
+# graphNodes = IOFunctions.importGraphNode("vaneau_copy.txt")
+
+# codeNAFs = []
+# for node in graphNodes:
+#     for codeNAF in graphNodes[node][2]:
+#         if not codeNAF in codeNAFs:
+#             codeNAFs.append(codeNAF)
+#             
+# print len(codeNAFs)
+# print len(graphNodes)
+# 
+# 
+# print extractKeywords("2059Z")
 
 
      

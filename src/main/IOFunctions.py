@@ -103,11 +103,24 @@ def importGraphNode(filename):
             graphNode[int(tab[0])] = [tab[1],float(tab[2]),{}]
             for element in tab[3].split(','):
                 tab1 = element.split("-")
-                graphNode[int(tab[0])][2][tab1[0]] = float(tab1[1])
-                            
+                if len(tab1)>1:
+                    graphNode[int(tab[0])][2][tab1[0]] = float(tab1[1])
+    return graphNode
+
+def saveGraphEdge(graphEdge, filename):
+    with codecs.open(filename,"w","utf-8") as fichier:
+        for node in graphEdge:
+            fichier.write(str(node[0])+"_"+str(node[1])+"_"+'%.2f' %str(graphEdge[node])+"\n")
                     
-                    
-                    
+def importGraphEdge(filename): 
+    graphEdge = {}
+    with codecs.open(filename,"r","utf-8") as fichier:
+        for line in fichier:
+            if len(line)>3:
+                tab = line.split("_")
+                graphEdge[(tab[0],tab[1])]=int(tab[2])
+    return graphEdge
+                             
                     
                     
                     
