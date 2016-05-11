@@ -8,8 +8,11 @@ Created on 25 avr. 2016
 import codecs
 from nltk.corpus import stopwords
 import nltk.stem.snowball
-import numpy as np
 import unidecode
+import warnings
+import IOFunctions
+
+exceptList = ['art','btp','vin']
 
 def extractFromTxt(filename,toDisplay = False):
     '''
@@ -43,14 +46,28 @@ def tokenizeFromArrayOfTxt(array, toDisplay=False):
             lines.append(nltkprocess(str(stri[0]).decode("utf-8")))
     return lines
 
-def nltkprocess(srctxt):
+def nltkprocess(srctxt, keepComa = False):
+    '''
+    NLP function that transform a string into an array of stemerized tokens
+    The punctionaction, stopwords and numbers are also removed as long as words shorter than 3 characters
+    -- IN:
+    srctxt : the string text to process (string)
+    keepComa : boolean that settles if the process should keep comas/points during the process (boolean) default=false
+    -- OUT:
+    stems : array of stemerized tokens (array[token]) 
+    '''
     french_stopwords = set(stopwords.words('french'))
     stem = nltk.stem.snowball.FrenchStemmer()
     try:
-        tokens = nltk.word_tokenize(srctxt.lower(),'french')
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            tokens = nltk.word_tokenize(srctxt.lower(),'french')
     except:
-        tokens = nltk.word_tokenize(unidecode.unidecode(srctxt).lower(),'french')
-    tokens = [token for token in tokens if len(token)>1 and token not in french_stopwords]
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            tokens = nltk.word_tokenize(unidecode.unidecode(srctxt).lower(),'french')
+    tokens = [token for token in tokens if (keepComa==True and (token=="." or token==",")) \
+                                            or (len(token)>1 and token not in french_stopwords)]
     stems = []
     for token in tokens:
         try:
@@ -58,11 +75,17 @@ def nltkprocess(srctxt):
         except:
             if token[0:2]=="d'":
                 token = token[2:]
-            if len(token)>3:
+            if len(token)>3 or token in exceptList:
                 try:
-                    stems.append(stem.stem(token[:-1])) 
+                    with warnings.catch_warnings():
+                        warnings.simplefilter("ignore")
+                        stems.append(stem.stem(token[:-1])) 
                 except:
-                    stems.append(stem.stem(unidecode.unidecode(token[:-1])))        
+                    with warnings.catch_warnings():
+                        warnings.simplefilter("ignore")
+                        stems.append(stem.stem(unidecode.unidecode(token[:-1])))
+            if len(token)==1 and keepComa==True:
+                stems.append(token)        
     return stems
      
 def computeDictToken(lines, dictToken = {}):  
@@ -87,6 +110,66 @@ def computeDictToken(lines, dictToken = {}):
             del dictToken[toR]
     return dictToken
 
+def extractKeywordsFromString(string, keywords, dicWordWeight, toPrint=False):
+    '''
+    function that returns a list of keywords out of a description
+    -- IN
+    string : the string from which we extract the keywords (str)
+    keywords : the list of keywords to extract (dic{str:[tokens]})
+    toPrint : boolean that settles if the function must print the results (boolean) default=False
+    -- OUT
+    dic : dic of keywords which values are the importance of the keyword (dic{str:float})
+    '''
+    dic = {}
+    stemmedDesc = nltkprocess(string,keepComa=True)
+    for keyword in keywords:
+        if keyword=='.' or keyword==",":
+            continue
+        v = getProbKeywordInDescription(keyword, keywords[keyword], stemmedDesc, dicWordWeight)
+        if v>0.60:
+            dic[keyword] = v
+    if toPrint:
+        print "Analyzing string:"
+        print "   ",string
+        print ""
+        IOFunctions.printSortedDic(dic, 10)
+    return dic
                          
+def getProbKeywordInDescription(keyword, tokens, stemmedDesc, dicWordWeight):
+    '''
+    function that determine the importance of the keyword in the string
+    '''
+    v=0
+    pos = [-1]*len(tokens)
+    i=0
+    for keywordslug in tokens:
+        if keywordslug in dicWordWeight:
+            coeff = 0.5+0.5/float(dicWordWeight[keywordslug])
+        else:
+            coeff = 1.0
+        j=0
+        flagComa = False
+        for s in stemmedDesc:
+            if len(s)==1:
+                coeff*0.7
+                flagComa=True
+            if keywordslug == s:
+                if flagComa==False and j+1<len(stemmedDesc) and len(stemmedDesc[j+1])==1:
+                    v+=0.4
+                for k in range(i):
+                    if pos[k]!=-1 and pos[k]<j and (j-pos[k]>=1 or j-pos[k]<=i-k):
+                        v+=1.0
+                v+=coeff
+                coeff*=0.5
+                if pos[i]==-1:
+                    pos[i] = j
+            coeff*=0.97
+            j+=1
+        if pos[i]==-1:
+            v-=0.5
+        i+=1
+    if v>0:
+        v = 1.0*v/len(tokens)
+    return v
 
     
