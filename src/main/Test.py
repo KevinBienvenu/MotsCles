@@ -5,32 +5,21 @@ Created on 25 avr. 2016
 @author: Kévin Bienvenu
 '''
 
-import IOFunctions
+import GraphPreprocess, KeywordSubset, ExtractingKeywordsFromInternet, os, IOFunctions
 
-dic = {"vané":1,"éé":2}
-  
-IOFunctions.saveDict(dic, "a.txt")
-
-# IOFunctions.extractNAFDesc("01.50z")
-
-# IOFunctions.getNbResultBing("bois habitat construction")
-
-# s = "lskdgj8sdf6"
-# 
-# se = set(range(10))
-# 
-# for c in s:
-#     try:
-#         int(c)
-#         print "vaneau"
-#     except:
-#         continue
-
-# s = "<tr><th>Cette sous-classe comprend</th><th>Cette sous-classe comprend aussi</th></tr> <tr><td>- la culture du tabac</td><td>&nbsp;</td></tr>"
+user = "Utilisateur"
+# user = "KevinBienvenu"
+path = "C:/Users/"+user+"/Documents/GitHub/MotsCles"
+pathAgreg = "C:/Users/"+user+"/Google Drive/Camelia Tech/Donnees entreprise/Agregation B Reputation"
+pathSubset = "C:/Users/"+user+"/Documents/GitHub/MotsCles/subsets"
 
 
+# KeywordSubset.extractRandomSubset(501, "extrait_501")
+# GraphPreprocess.extractGraphFromSubset("extrait_501")
 
 
+# os.chdir("C:/Users/Utilisateur/Documents/GitHub/MotsCles/motscles")
+# ExtractingKeywordsFromInternet.cleanMotsCles("keywords.txt")
 
 
 

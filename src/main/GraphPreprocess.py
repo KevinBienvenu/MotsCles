@@ -5,147 +5,29 @@ Created on 27 avr. 2016
 @author: Kévin Bienvenu
 '''
 
-import codecs
 import os
-import math
 import operator
-import random
-import nltk
 import pandas as pd
-from nltk.corpus import stopwords
-from main import IOFunctions, TextProcessing
+import TextProcessing
+import KeywordSubset
+import IOFunctions
+import Test
 
-path0 = "C:/Users/Utilisateur/Documents/GitHub/MotsCles"
-path1 = "C:/Users/KevinBienvenu/Documents/GitHub/MotsCles"
+path = Test.path
+pathAgreg = Test.pathAgreg
 
-pathAgreg0 = "C:/Users/Utilisateur/Google Drive/Camelia Tech/Donnees entreprise/Agregation B Reputation"
-pathAgreg1 = "C:/Users/KevinBienvenu/Google Drive/Camelia Tech/Donnees entreprise/Agregation B Reputation"
 
-path = path0
-pathAgreg = pathAgreg0
 
-def normalizeMotsClesKompass():
-    path0 = "C:/Users/Utilisateur/Documents/GitHub/MotsCles/dicts"
-    path1 = "C:/Users/KevinBienvenu/Documents/GitHub/MotsCles/dicts"
-    os.chdir(path1)
-    # first step compute normalization of kompass terms
-    dicMainClasses = {}
-    dicSubClasses = {}
-    dicArborescence = {}
-    with codecs.open("mots-cles-kompass.txt","r","utf-8") as fichier:
-        total = len(fichier.readlines())
-    with open("mots-cles-kompass.txt","r") as fichier:
-        lastClass = ""
-        percent = 1
-        j=0
-        for line in fichier:
-            j+=1
-            if 100.0*j/total>percent:
-                print percent,"% -",
-                percent+=1
-                if percent%10==0:
-                    print ""
-            if len(line)>10 and line[:4]=="    " and line[4:8]!="    ":
-                term = line[4:-1].lower()
-                lastClass = term
-                dicMainClasses[term] = max([IOFunctions.getNbResultBing(term) for i in range(10)])
-            elif len(line)>10 and line[:8]=="        ":
-                term = line[8:-1].lower()
-                dicArborescence[term] = lastClass
-                dicSubClasses[term] = max([IOFunctions.getNbResultBing(term) for i in range(5)])
-    print "done"
-    os.chdir("./dicts")
-    IOFunctions.saveDict(dicMainClasses, "dicMainClasses.txt")
-    IOFunctions.saveDict(dicSubClasses, "dicSubClasses.txt")
-    IOFunctions.saveDict(dicArborescence, "dicArborescence.txt")
-
-def normalizeMotsClesPJ():
-    path0 = "C:/Users/Utilisateur/Documents/GitHub/MotsCles"
-    path1 = "C:/Users/KevinBienvenu/Documents/GitHub/MotsCles"
-    os.chdir(path1)
-    # first step compute normalization of kompass terms
-    dicMotsClesPJ = {}
-    with codecs.open("mots-cles-pj.txt","r","utf-8") as fichier:
-        total = len(fichier.readlines())
-    with open("mots-cles-pj.txt","r") as fichier:
-        percent = 1
-        j=0
-        for line in fichier:
-            j+=1
-            if 100.0*j/total>percent:
-                print percent,"% -",
-                percent+=1
-                if percent%10==0:
-                    print ""
-            if len(line)>10 and line[:4]=="    ":
-                term = line[4:-1].lower()
-                dicMotsClesPJ[term] = max([IOFunctions.getNbResultBing(term) for i in range(3)])
-    print "done"
-    os.chdir("./dicts")
-    IOFunctions.saveDict(dicMotsClesPJ, "dicMotsClesPJ.txt")
-
-def normalizeCodeNAF1():
-    path0 = "C:/Users/Utilisateur/Documents/GitHub/MotsCles"
-    path1 = "C:/Users/KevinBienvenu/Documents/GitHub/MotsCles"
-    os.chdir(path0)
-    # first step compute normalization of kompass terms
-    dicCodeNAF = {}
-    with open("codeNAF1.txt","r") as fichier:
-        total = len(fichier.readlines())
-    with open("codeNAF1.txt","r") as fichier:
-        percent = 10
-        j=0
-        for line in fichier:
-            j+=1
-            if 100.0*j/total>percent:
-                print percent,"% -",
-                percent+=10
-                if percent%10==0:
-                    print ""
-            term = line[:-1].lower()
-            codeNAF = term
-            tab = term.split(" et ")
-            term = []
-            for mot in tab:
-                for mot2 in mot.split(","):
-                    term.append(mot2)
-            norm = max([IOFunctions.getNbResultBing(mot,True) for mot in term])
-            dicCodeNAF[codeNAF] = norm
-    print "done"    
-    os.chdir("./dicts")
-    IOFunctions.saveDict(dicCodeNAF, "dicCodeNAF1.txt")
-
-def importDicts():
-    path0 = "C:/Users/Utilisateur/Documents/GitHub/MotsCles/dicts"
-    path1 = "C:/Users/KevinBienvenu/Documents/GitHub/MotsCles/dicts"
-    os.chdir(path0)
-    dicPj = IOFunctions.importDict("dicMotsClesPJ.txt")
-    dicMainKompass = IOFunctions.importDict("dicMainClasses.txt")
-    dicSubKompass = IOFunctions.importDict("dicSubClasses.txt")
-    return (dicPj,dicMainKompass,dicSubKompass)
-    
-def distanceMots(mot1, mot2, norm1, norm2):
-    dis = 0
-    dis += 1.0*min(IOFunctions.getNbResultBing(mot1+" "+mot2),IOFunctions.getNbResultBing(mot2+" "+mot1))
-#     norm = math.sqrt(int(norm1)**2+int(norm2)**2+1)
-    norm = 1.0*max(int(norm1),int(norm2))
-    dis /= norm
-    return dis
-
-def findClassKompass(motclepj,dicPj,dicMainKompass,dicSubKompass):
-    if not (motclepj in dicPj):
-        return ""
-    norm = dicPj[motclepj]
-    dicResult = {}
-    for subclass in dicSubKompass:
-        dicResult[subclass] = distanceMots(mot1=motclepj, mot2=subclass, norm1=norm, norm2=dicSubKompass[subclass])
-    dicResult= sorted(dicResult.items(), key=operator.itemgetter(1),reverse=True)
-    for i in range(3):
-        print "   ",dicResult[i][0],dicResult[i][1]
-   
 ''' functions of graph handling '''
 
-def addEdgeValue(id1, id2, value):
+'''
+ === Graph Description ===
+- graphNodes V : dic{id, (name, genericite, dic{NAF:value})}
+
+- graphEdges E : dic{(id1,id2),[value,nbOccurence]}
+'''
+
+def addEdgeValue(id1, id2, value, graphEdges):
     '''
     function that add the value 'value' to the edge between the nodes 1 and 2
     -- IN
@@ -153,7 +35,7 @@ def addEdgeValue(id1, id2, value):
     id2 : id of the second node (int)
     value : the value to add to the edge (float)
     -- OUT
-    returns nothing
+    graphEdges : the dic of edges
     '''
     try:
         i = int(id1)
@@ -164,10 +46,12 @@ def addEdgeValue(id1, id2, value):
     if i>j:
         (i,j) = (j,i)
     if not((i,j) in graphEdges):
-        graphEdges[(i,j)] = 0
-    graphEdges[(i,j)] += v
+        graphEdges[(i,j)] = [0,0]
+    graphEdges[(i,j)][0] += v
+    graphEdges[(i,j)][1] += 1
+    return graphEdges
     
-def addNodeValues(name, codeNAF="", valueNAF=0, genericity = 0):
+def addNodeValues(name, dicIdNodes, graphNodes, codeNAF="", valueNAF=0, genericity = 0):
     '''
     function that change the node 'name'
     if the node doesn't exist 
@@ -184,7 +68,8 @@ def addNodeValues(name, codeNAF="", valueNAF=0, genericity = 0):
     value : value to add to the code NAF (float) default = 0
     genericity : value to set to the genericity (float) default = 0
     -- OUT
-    returns nothing    
+    dicIdNodes : dic of nodes id
+    graphNodes : graph of nodes  
     '''
     try:
         v = float(valueNAF)
@@ -200,61 +85,57 @@ def addNodeValues(name, codeNAF="", valueNAF=0, genericity = 0):
         graphNodes[dicIdNodes[name]][2][codeNAF] += v
     if genericity>0:
         graphNodes[dicIdNodes[name]][1] = g
+    return (dicIdNodes, graphNodes)
 
-def extractKeywordsFromDescription(desc):
-    '''
-    function that returns a list of keywords out of a description
-    -- IN
-    desc : the description (str)
-    -- OUT
-    dic : dic of keywords (dic{str:float})
-    '''
-    dic = {}
-    stemmedDesc = TextProcessing.nltkprocess(desc)
-    for keyword in keywords:
-        v = getProbKeywordInDescription(keyword, stemmedDesc)
-        if v>0.00:
-            dic[keyword] = v
-    return dic
-
-def getProbKeywordInDescription(keyword, stemmedDesc):
-    v=0
-    for keywordslug in keywords[keyword]:
-        coeff = 1.0
-        for s in stemmedDesc:
-            if keywordslug == s:
-                v+=coeff
-            coeff*=0.97
-    if v>0:
-        v = 1.0*v/len(keywords[keyword])
-    return v
-
-def extractDescription(desc,codeNAF):
+def extractDescription(desc,codeNAF,keywords, dicWordWeight, dicIdNodes, graphNodes, graphEdges):
     '''
     function that extracts the content of a description and fills the graph.
     extraction of the keywords ?
     -- IN
     desc : the description to extract (str)
     codeNAF : the corresponding codeNAF (str)
+    keywords : global dic of keywords
+    dicWordWeight : global dic of word weight
+    dicIdNodes :
+    graphNodes :
+    graphEdges :
     -- OUT
-    returns nothing
+    dicIdNodes :
+    graphNodes :
+    graphEdges :
     '''
-    listKeywords = extractKeywordsFromDescription(desc)
+    listKeywords = TextProcessing.extractKeywordsFromString(desc,keywords, dicWordWeight)
     for k in listKeywords:
-        addNodeValues(k, codeNAF=codeNAF, valueNAF=listKeywords[k])
+        (dicIdNodes, graphNodes) = addNodeValues(k, dicIdNodes, graphNodes,codeNAF=codeNAF, valueNAF=listKeywords[k])
     for k in listKeywords:
         for k1 in listKeywords:
             if k!=k1:
-                addEdgeValue(dicIdNodes[k], dicIdNodes[k1], listKeywords[k]+listKeywords[k1])
+                graphEdges = addEdgeValue(dicIdNodes[k], dicIdNodes[k1], listKeywords[k]+listKeywords[k1],graphEdges)
+    return (dicIdNodes,graphNodes,graphEdges)
 
-def importKeywords():
-    os.chdir(path)
-    with codecs.open("motscles/mots-cles.txt","r","utf-8") as fichier:
-        for line in fichier:
-            if len(line)>1:
-                keywords[line[:-1]] = TextProcessing.nltkprocess(line[:-1])
+def generateWordWeight(keywords):
+    '''
+    function that generates a dic of word used in keywords and computes their weights.
+    The more a word is present in keywords, the heavier it will weight.
+    -- IN:
+    keywords: dic of keywords (dic{str:[tokens]})
+    -- OUT:
+    dicWordWeight : dic of words and their weight (dic{str:int})
+    '''
+    dicWordWeight = {}
+    for keywordstems in keywords.values():
+        for word in keywordstems:
+            if not(word in dicWordWeight):
+                dicWordWeight[word] = 0
+            dicWordWeight[word] += 1
+    return dicWordWeight
 
-def extractKeywords(codeNAF):
+''' experimental functions '''
+
+def extractKeywords(codeNAF, graphNodes):
+    '''
+    experimental function that return the 10 first keywords for a particular codeNAF
+    '''
     nodes = {}
     for node in graphNodes:
         if codeNAF in graphNodes[node][2]:
@@ -262,12 +143,18 @@ def extractKeywords(codeNAF):
     dic= sorted(nodes.items(), key=operator.itemgetter(1),reverse=True)
     return dic[:min(10,len(dic))]
 
-def extractDescriptionFromCSV(filename):
+def extractGraphFromCSV(filename,keywords):
+    ''' 
+    non generic function that extract description and keywords from csv file
+    '''
     os.chdir(pathAgreg)
     db = pd.read_csv(filename,usecols=['codeNaf', 'description'])
     percent = 1
     i = 0
     total = len(db)
+    graphNodes = {}
+    graphEdges = {}
+    dicIdNodes = {}
     for line in db.values:
         i+=1
         if 100.0*i/total>percent:
@@ -276,44 +163,33 @@ def extractDescriptionFromCSV(filename):
             if percent%10==0:
                 print ""
         if str(line[1])!="nan":
-            extractDescription(line[1],line[0])
+            (dicIdNodes,graphNodes,graphEdges)=extractDescription(line[1],line[0],keywords,dicIdNodes,graphNodes,graphEdges)
         break
+    return (dicIdNodes,graphNodes,graphEdges)
 
      
-# (dicPj,dicMainKompass,dicSubKompass) = importDicts()
+
+
+
+# keywords = importKeywords()
 # 
-# for i in range(10):
-#     motclepj = random.choice(dicPj.keys())
-#     print motclepj
-#     findClassKompass(motclepj, dicPj, dicMainKompass, dicSubKompass)
-
-# Node V : id, name, genericite, dic{NAF:value}
-# Edge E : dic{(id1,id2),value}
-graphNodes = {}
-graphEdges = {}
-dicIdNodes = {}
- 
-keywords = {}
-
-importKeywords()
-
-fileNameVec = ['BRep_Step2_0_1000000.csv', 
-               'BRep_Step2_1000000_2000000.csv', 
-               'BRep_Step2_2000000_3000000.csv',
-              'BRep_Step2_3000000_4000000.csv', 
-              'BRep_Step2_4000000_5000000.csv', 
-              'BRep_Step2_5000000_6000000.csv',
-              'BRep_Step2_6000000_7000000.csv', 
-              'BRep_Step2_7000000_8000000.csv', 
-              'BRep_Step2_8000000_9176180.csv']
-
-for filename in fileNameVec:
-    print "extracting file:",filename
-    extractDescriptionFromCSV(filename)
-
-os.chdir(path)
-IOFunctions.saveGraphNode(graphNodes, "graphNode.txt")
-IOFunctions.saveGraphEdge(graphEdges, "graphEdge.txt")
+# fileNameVec = ['BRep_Step2_0_1000000.csv', 
+#                'BRep_Step2_1000000_2000000.csv', 
+#                'BRep_Step2_2000000_3000000.csv',
+#               'BRep_Step2_3000000_4000000.csv', 
+#               'BRep_Step2_4000000_5000000.csv', 
+#               'BRep_Step2_5000000_6000000.csv',
+#               'BRep_Step2_6000000_7000000.csv', 
+#               'BRep_Step2_7000000_8000000.csv', 
+#               'BRep_Step2_8000000_9176180.csv']
+# 
+# for filename in fileNameVec:
+#     print "extracting file:",filename
+#     extractDescriptionFromCSV(filename, keywords)
+# 
+# os.chdir(path)
+# IOFunctions.saveGraphNode(graphNodes, "graphNode.txt")
+# IOFunctions.saveGraphEdge(graphEdges, "graphEdge.txt")
 
 # graphNodes = IOFunctions.importGraphNode("vaneau_copy.txt")
 
@@ -329,7 +205,38 @@ IOFunctions.saveGraphEdge(graphEdges, "graphEdge.txt")
 # 
 # print extractKeywords("2059Z")
 
-
+def extractGraphFromSubset(subsetname):
+    '''
+    function that computes a graph (ie. dicIdNodes, graphNodes, graphEdges)
+    out of a subset file, containing a 'keywords.txt' and a 'subsey_entreprises.txt' file
+    -- IN:
+    subsetname : name of the subset (string)
+    -- OUT:
+    dicIdNodes : dic of id of the nodes
+    graphNodes : dic of the nodes
+    graphEdges : dic of the edges
+    '''
+    print "== Extracting graph from subset:",subsetname
+    print "- importing subset",
+    (entreprises,keywords,dicWordWeight) = KeywordSubset.importSubset(subsetname)
+    print "... done"
+    if entreprises is None:
+        return
+    graphNodes = {}
+    graphEdges = {}
+    dicIdNodes = {}
+    print "- analyzing entreprises"
+    compt = IOFunctions.initProgress(entreprises, 10)
+    for entreprise in entreprises:
+        compt = IOFunctions.updateProgress(compt)
+        (dicIdNodes,graphNodes,graphEdges) = extractDescription(entreprise[2],entreprise[1], keywords, dicWordWeight, dicIdNodes, graphNodes, graphEdges)
+    print "... done"
+    print "- saving graphs",
+    os.chdir(KeywordSubset.pathsubset+"/"+subsetname)
+    IOFunctions.saveGraphEdge(graphEdges, "graphEdges.txt")
+    IOFunctions.saveGraphNode(graphNodes, "graphNodes.txt")
+    IOFunctions.saveGexfFile("graph.gexf", graphNodes, graphEdges)
+    print "... done"
      
     
 

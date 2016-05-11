@@ -11,7 +11,8 @@ import ssl
 import string
 import urllib
 import numpy as np
-from main import TextProcessing
+import TextProcessing
+import difflib
 
 
 def importKeywordHelloPro():
@@ -156,5 +157,55 @@ def mergeMotsCles(filenames, exportname):
 # 
 # mergeMotsCles(filenames, exportname)
 
- 
+def cleanMotsCles(filename):
+    '''
+    function that cleans the keywords file according to criterias
+    '''
+    keywords = []
+    with open(filename, "r") as fichier:
+        for line in fichier:
+            keywords.append(line[:-1])
+    newKeywords = []
+    for keyword in keywords:
+        # criteria : maximum length
+        maxlength = 30
+        if len(keyword)>maxlength:
+            continue
+        # criteria : maximum number of words
+        nbmaxword = 5
+        if len(keyword.split(" "))>nbmaxword:
+            continue
+        # criteria : first word is 'autre' or 'autres'
+        word = keyword.split(" ")[0]
+        if word=="autre" or keyword=="autres":
+            continue
+        # criteria : remove double "mot-mot" and "mot mot"
+        flag = False
+        for keyword2 in newKeywords:
+            if keyword2[:2]==keyword[:2]:
+                if keyword.split(" ")==keyword2.split("-") or keyword2.split(" ")==keyword.split("-"):
+                    flag=True
+                    break 
+        if flag:
+            print "similar words :",keyword,"et",keyword2
+            newKeywords.remove(keyword2)
+        # criteria : remove plural if singular is present
+        flag = False
+        for keyword2 in newKeywords:
+            if keyword2[:]==keyword[:-1]:
+                flag=True
+                break 
+        if flag:
+            print "plural words :",keyword,"et",keyword2
+            continue
+
+        # keyword accepted !
+        newKeywords.append(keyword)
+    with open(filename,"w") as fichier:
+        for keyword in newKeywords:
+            fichier.write(keyword)
+            fichier.write("\n")
+    print len(newKeywords)
+    return newKeywords
+        
  
