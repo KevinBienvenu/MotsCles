@@ -14,7 +14,11 @@ import os
 
 import unidecode
 import TextProcessing 
-import Test
+
+
+# user = "Utilisateur"
+user = "KevinBienvenu"
+path0 = "C:/Users/"+user+"/Documents/GitHub/MotsCles/motscles"
 
 def saveDict(dic,filename):
     with codecs.open(filename,'w','utf-8') as fichier:
@@ -164,7 +168,7 @@ def importKeywords(path = None):
     '''
     keywords = {}
     if path is None:
-        path = Test.path
+        path = path0
     os.chdir(path)
     with codecs.open("keywords.txt","r","utf-8") as fichier:
         for line in fichier:

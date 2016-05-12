@@ -13,14 +13,15 @@ import os
 import IOFunctions
 import TextProcessing
 import GraphPreprocess
-import Test
 
-
-path = Test.pathAgreg
-pathsubset = Test.pathSubset
+# user = "Utilisateur"
+user = "KevinBienvenu"
+path = "C:/Users/"+user+"/Documents/GitHub/MotsCles"
+pathAgreg = "C:/Users/"+user+"/Google Drive/Camelia Tech/Donnees entreprise/Agregation B Reputation"
+pathsubset = "C:/Users/"+user+"/Documents/GitHub/MotsCles/subsets"
 
 def extractRandomSubset(n=10, subsetname="extrait_entreprises"):
-    os.chdir(path)
+    os.chdir(pathAgreg)
     print "== Extracting random subset of size",n
     fileNameVec = ['BRep_Step2_0_1000000.csv', 
                'BRep_Step2_1000000_2000000.csv', 

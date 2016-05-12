@@ -7,15 +7,15 @@ Created on 25 avr. 2016
 
 import GraphPreprocess, KeywordSubset, ExtractingKeywordsFromInternet, os, IOFunctions
 
-user = "Utilisateur"
-# user = "KevinBienvenu"
+# user = "Utilisateur"
+user = "KevinBienvenu"
 path = "C:/Users/"+user+"/Documents/GitHub/MotsCles"
 pathAgreg = "C:/Users/"+user+"/Google Drive/Camelia Tech/Donnees entreprise/Agregation B Reputation"
 pathSubset = "C:/Users/"+user+"/Documents/GitHub/MotsCles/subsets"
 
-
-# KeywordSubset.extractRandomSubset(501, "extrait_501")
-# GraphPreprocess.extractGraphFromSubset("extrait_501")
+nbExtract = 5000
+KeywordSubset.extractRandomSubset(nbExtract, "extrait_"+str(nbExtract))
+GraphPreprocess.extractGraphFromSubset("extrait_"+str(nbExtract))
 
 
 # os.chdir("C:/Users/Utilisateur/Documents/GitHub/MotsCles/motscles")

@@ -11,10 +11,12 @@ import pandas as pd
 import TextProcessing
 import KeywordSubset
 import IOFunctions
-import Test
 
-path = Test.path
-pathAgreg = Test.pathAgreg
+# user = "Utilisateur"
+user = "KevinBienvenu"
+path = "C:/Users/"+user+"/Documents/GitHub/MotsCles"
+pathAgreg = "C:/Users/"+user+"/Google Drive/Camelia Tech/Donnees entreprise/Agregation B Reputation"
+pathSubset = "C:/Users/"+user+"/Documents/GitHub/MotsCles/subsets"
 
 
 
