@@ -11,10 +11,12 @@ import pandas as pd
 import TextProcessing
 import KeywordSubset
 import IOFunctions
-import Test
+import Constants
 
-path = Test.path
-pathAgreg = Test.pathAgreg
+
+path = Constants.path
+pathAgreg = Constants.pathAgreg
+pathSubset = Constants.pathSubset
 
 
 

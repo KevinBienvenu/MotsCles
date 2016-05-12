@@ -13,11 +13,12 @@ import os
 import IOFunctions
 import TextProcessing
 import GraphPreprocess
-import Test
+import Constants
 
 
-path = Test.pathAgreg
-pathsubset = Test.pathSubset
+path = Constants.path
+pathAgreg = Constants.pathAgreg
+pathSubset = Constants.pathSubset
 
 def extractRandomSubset(n=10, subsetname="extrait_entreprises"):
     os.chdir(path)
@@ -39,7 +40,7 @@ def extractRandomSubset(n=10, subsetname="extrait_entreprises"):
         line = csvfile.iloc[np.random.randint(0,len(csvfile))]
         entreprises.append([line[0],line[1],line[2]])
         print str(i+1)+"/"+str(n)
-    os.chdir(pathsubset)
+    os.chdir(pathSubset)
     i=0
     if subsetname not in os.listdir("."):
         os.mkdir("./"+subsetname)
@@ -62,11 +63,11 @@ def importSubset(subsetname):
     -- IN:
     filename : the name of the subset to import (string)
     -- OUT:
-    entreprises : array containing info about the entreprise (dic)
+    entreprises : array containing info about the entreprise (array) [siren,naf,desc]
     keywords : dic of keywords
     '''
     # importing file
-    os.chdir(pathsubset)
+    os.chdir(pathSubset)
     if not(subsetname in os.listdir(".")):
         print "non-existing subset"
         return (None,None)
@@ -75,7 +76,7 @@ def importSubset(subsetname):
     with open("subset_entreprises.txt","r") as fichier:
         for line in fichier:
             entreprises.append(line.split("_"))
-    keywords = IOFunctions.importKeywords(pathsubset+"/"+subsetname)
+    keywords = IOFunctions.importKeywords(pathSubset+"/"+subsetname)
     dicWordWeight = IOFunctions.importDict("dicWordWeight.txt")
     return (entreprises, keywords, dicWordWeight)
 
@@ -129,7 +130,7 @@ def createKeywords(entreprises,subsetname):
             newKeywords[key] = keywords[key]
             del keywords[key]
     print " ... done"
-    os.chdir(pathsubset+"/"+subsetname)
+    os.chdir(pathSubset+"/"+subsetname)
     with codecs.open("keywords.txt","w","utf-8") as fichier:
         for keyword in newKeywords:
             fichier.write(keyword)

@@ -6,17 +6,18 @@ Created on 26 avr. 2016
 '''
 
 import codecs
-import operator
 import os
 import numpy as np
 
 import IOFunctions
-from main import TextProcessing
+import TextProcessing
+import Constants
 
 
-path = "C:/Users/Utilisateur/Documents/GitHub/MotsCles"
+path = Constants.path
+pathAgreg = Constants.pathAgreg
+pathSubset = Constants.pathSubset
 
-os.chdir(path)
 
 # importing code NAF
 def extractingNAFKeyWordsFromInternet():
@@ -126,7 +127,8 @@ def processingNAFKeyWords():
 def pipelineNAF():
 #     extractingNAFKeyWordsFromInternet()
     processingNAFKeyWords()
-    
+  
+os.chdir(path)  
 pipelineNAF()    
 
 # print IOFunctions.extractNAFDesc("17.29Z")

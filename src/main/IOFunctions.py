@@ -14,7 +14,7 @@ import os
 
 import unidecode
 import TextProcessing 
-import Test
+import Constants
 
 def saveDict(dic,filename):
     with codecs.open(filename,'w','utf-8') as fichier:
@@ -113,6 +113,10 @@ def getNbResultBing(searchword, toPrint=False):
     if toPrint:
         print int(s),"résultats"
     return int(s)
+
+''' functions '''
+
+''' functions about graph saving and importing'''
                    
 def saveGraphNode(graphNode, filename):
     with codecs.open(filename,"w","utf-8") as fichier:
@@ -123,24 +127,30 @@ def saveGraphNode(graphNode, filename):
                 fichier.write(",")
             fichier.write("\n")
 
-def importGraphNode(filename):
-    graphNode = {}
-    dicIdNode = {}
-    with codecs.open(filename,"r","utf-8") as fichier:
-        for line in fichier:
-            tab = line.split("_")
-            dicIdNode[tab[1]] = int(tab[0])
-            graphNode[int(tab[0])] = [tab[1],float(tab[2]),{}]
-            for element in tab[3].split(','):
-                tab1 = element.split("-")
-                if len(tab1)>1:
-                    graphNode[int(tab[0])][2][tab1[0]] = float(tab1[1])
-    return graphNode
-
 def saveGraphEdge(graphEdge, filename):
     with codecs.open(filename,"w","utf-8") as fichier:
         for node in graphEdge:
             fichier.write(str(node[0])+"_"+str(node[1])+"_"+str('%.2f' %graphEdge[node][0])+"_"+str(graphEdge[node][1])+"\n")
+
+def importGraphNode(filename):
+    graphNode = {}
+    dicIdNode = {}
+    with codecs.open(filename,"r","utf-8") as fichier:
+        flag = False
+        for line in fichier:
+            flag = not flag
+            if flag:
+                totalLine = ""
+            totalLine += line[:-1]
+            if not flag:
+                tab = totalLine.split("_")
+                dicIdNode[tab[1]] = int(tab[0])
+                graphNode[int(tab[0])] = [tab[1],float(tab[2]),{}]
+                for element in tab[3].split(','):
+                    tab1 = element.split("-")
+                    if len(tab1)>1:
+                        graphNode[int(tab[0])][2][str(tab1[0])] = float(tab1[1])
+    return graphNode
                     
 def importGraphEdge(filename): 
     graphEdge = {}
@@ -150,7 +160,30 @@ def importGraphEdge(filename):
                 tab = line.split("_")
                 graphEdge[(tab[0],tab[1])]=[float(tab[2]),int(tab[3])]
     return graphEdge
-       
+
+def importGraph(subsetname):
+    '''
+    function that imports a complete graph, including graphNodes and graphEdges
+    the os path must be settle in the subset file
+    -- IN:
+    subsetname: name of the subset from which import the graph (str)
+    --OUT:
+    graph: [graphNodes, graphEdges]
+    '''
+    if not(subsetname in os.listdir(".")):
+        print "non-existing subset"
+        return (None, None)
+    os.chdir(subsetname)
+    if not("graphNodes.txt" in os.listdir(".")):
+        print "non-existing graphNodes"
+        return (None, None)
+    if not("graphEdges.txt" in os.listdir(".")):
+        print "non-existing graphEdges"
+        return (None, None)
+    graphNodes = importGraphNode("graphNodes.txt")
+    graphEdges = importGraphEdge("graphEdges.txt")
+    return [graphNodes,graphEdges]
+    
 def importKeywords(path = None):
     '''
     function that imports the keywords out of a file given by pathArg
@@ -164,7 +197,7 @@ def importKeywords(path = None):
     '''
     keywords = {}
     if path is None:
-        path = Test.path
+        path = Constants.path
     os.chdir(path)
     with codecs.open("keywords.txt","r","utf-8") as fichier:
         for line in fichier:
@@ -231,8 +264,10 @@ def saveGexfFileNaf(filename, graphNodes, graphEdges, codeNAF):
         fichier.write("<graph>\n")
         # writing nodes
         fichier.write("<nodes>\n")
+        concernedNodes = []
         for node in graphNodes:
             if codeNAF in graphNodes[node][2]:
+                concernedNodes.append(node)
                 fichier.write("<node id=\"")
                 fichier.write(str(node))
                 fichier.write("\" label=\"")
@@ -246,8 +281,16 @@ def saveGexfFileNaf(filename, graphNodes, graphEdges, codeNAF):
         # writing edges
         fichier.write("<edges>\n")
         i=0
+        selectedEdges = []
+        maxEdge = 0
         for edge in graphEdges:
-            if codeNAF in graphNodes[edge[0]][2] or codeNAF in graphNodes[edge[1]][2] :
+            if int(edge[0]) in concernedNodes and int(edge[1]) in concernedNodes:
+                selectedEdges.append(edge)
+                if 3.0*graphEdges[edge][0]/graphEdges[edge][1]>maxEdge:
+                    maxEdge = 3.0*graphEdges[edge][0]/graphEdges[edge][1]
+        for edge in selectedEdges:
+#             if codeNAF in graphNodes[int(edge[0])][2] or codeNAF in graphNodes[int(edge[1])][2] :
+            if 3.0*graphEdges[edge][0]/graphEdges[edge][1]>=3.5*maxEdge/5.0:
                 fichier.write("<edge id=\"")
                 fichier.write(str(i))
                 fichier.write("\" source=\"")
@@ -261,6 +304,7 @@ def saveGexfFileNaf(filename, graphNodes, graphEdges, codeNAF):
         fichier.write("</edges>\n")
         fichier.write("</graph>\n")
         fichier.write("</gexf>")
+    return [len(concernedNodes), len(selectedEdges)]
                      
 ''' function about progress printing '''
 
