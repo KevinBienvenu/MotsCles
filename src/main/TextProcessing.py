@@ -11,8 +11,9 @@ import nltk.stem.snowball
 import unidecode
 import warnings
 import IOFunctions
+import math
 
-exceptList = ['art','btp','vin']
+exceptList = ['art','btp','vin','pli','cms','son']
 
 def extractFromTxt(filename,toDisplay = False):
     '''
@@ -144,7 +145,7 @@ def getProbKeywordInDescription(keyword, tokens, stemmedDesc, dicWordWeight):
     i=0
     for keywordslug in tokens:
         if keywordslug in dicWordWeight:
-            coeff = 0.5+0.5/float(dicWordWeight[keywordslug])
+            coeff = 0.9+0.1/math.log10(1+float(dicWordWeight[keywordslug]))
         else:
             coeff = 1.0
         j=0
@@ -163,7 +164,7 @@ def getProbKeywordInDescription(keyword, tokens, stemmedDesc, dicWordWeight):
                 coeff*=0.5
                 if pos[i]==-1:
                     pos[i] = j
-            coeff*=0.97
+            coeff*=0.99
             j+=1
         if pos[i]==-1:
             v-=0.5

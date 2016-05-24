@@ -5,19 +5,22 @@ Created on 27 avr. 2016
 @author: Kévin Bienvenu
 '''
 
-import os
+from operator import itemgetter
 import operator
-import pandas as pd
-import TextProcessing
-import KeywordSubset
-import IOFunctions
+import os
+
+from pygments.lexers.robotframework import RowTokenizer
+
 import Constants
+import IOFunctions
+import KeywordSubset
+import TextProcessing
+import pandas as pd
 
 
 path = Constants.path
 pathAgreg = Constants.pathAgreg
 pathSubset = Constants.pathSubset
-
 
 
 ''' functions of graph handling '''
@@ -112,7 +115,9 @@ def extractDescription(desc,codeNAF,keywords, dicWordWeight, dicIdNodes, graphNo
     for k in listKeywords:
         for k1 in listKeywords:
             if k!=k1:
-                graphEdges = addEdgeValue(dicIdNodes[k], dicIdNodes[k1], listKeywords[k]+listKeywords[k1],graphEdges)
+                # on calcule la valeur de l'arrête entre i et j
+                edgeValue = listKeywords[k]+listKeywords[k1]
+                graphEdges = addEdgeValue(dicIdNodes[k], dicIdNodes[k1], edgeValue,graphEdges)
     return (dicIdNodes,graphNodes,graphEdges)
 
 def generateWordWeight(keywords):
@@ -131,6 +136,172 @@ def generateWordWeight(keywords):
                 dicWordWeight[word] = 0
             dicWordWeight[word] += 1
     return dicWordWeight
+
+def graphPostTreatment0(graphNodes, graphEdges):
+    # removing useless edges
+    print "=== post treatment of graph"
+    print "- removing little edges",
+    thresholdEdge = 1.0
+    toremove = []
+    for edge in graphEdges:
+        if 3.0*graphEdges[edge][0]/graphEdges[edge][1]<thresholdEdge:
+            toremove.append(edge)
+    print "... done :",len(toremove),"edges removed -",100.0*len(toremove)/len(graphEdges),"%"
+    for edge in toremove:
+        del graphEdges[edge]
+    nbEdgeToKeep = 3
+    dicRowToKeep = {}
+    dicNodeEdges = {}
+    print "- keeping only",str(nbEdgeToKeep),"edges by node",
+    for edge in graphEdges:
+        if edge[0] not in dicNodeEdges:
+            dicNodeEdges[edge[0]] = []            
+        dicNodeEdges[edge[0]].append(edge)
+        if edge[1] not in dicNodeEdges:
+            dicNodeEdges[edge[1]] = []            
+        dicNodeEdges[edge[1]].append(edge)
+    for node in dicNodeEdges:
+        for _ in range(min(nbEdgeToKeep,len(dicNodeEdges[node]))):
+            maxiVal = 0
+            maxiEdge = None
+            for edge in dicNodeEdges[node]:
+                if 3.0*graphEdges[edge][0]/graphEdges[edge][1]>maxiVal:
+                    maxiVal = 3.0*graphEdges[edge][0]/graphEdges[edge][1]
+                    maxiEdge = edge
+            dicRowToKeep[maxiEdge] = 1
+            dicNodeEdges[node].remove(maxiEdge)
+    graphEdges2 = {}
+    for edge in dicRowToKeep:
+        graphEdges2[edge] = graphEdges[edge]
+    print "... done :",len(graphEdges)-len(graphEdges2),"edges removed -",100.0*(len(graphEdges)-len(graphEdges2))/len(graphEdges),"%"
+    graphEdges = graphEdges2
+    return (graphNodes, graphEdges)
+
+def graphPostTreatment1(graphNodes, graphEdges):
+    toPrint = False
+    (graphNodes, graphEdges) = graphPostTreatmentEdges(graphNodes, graphEdges)
+    dicNodeEdges = {}
+    dicNodeDegre = {}
+    dicEdgeState = {}
+    nbEdgeToKeep = 10
+    if toPrint: 
+        print "- keeping only",str(nbEdgeToKeep),"edges by node",
+    for edge in graphEdges:
+        if edge[0] not in dicNodeEdges:
+            dicNodeEdges[edge[0]] = []            
+        dicNodeEdges[edge[0]].append(edge)
+        if edge[1] not in dicNodeEdges:
+            dicNodeEdges[edge[1]] = []            
+        dicNodeEdges[edge[1]].append(edge)
+#         graphEdges[edge] = [graphEdges[edge][0]/graphEdges[edge][1], graphEdges[edge][0]/graphEdges[edge][1]]
+        graphEdges[edge] = [graphEdges[edge][0], graphEdges[edge][0]]
+        dicEdgeState[edge] = "waiting"
+    nodes = {}
+    for node in graphNodes:
+        nodes[node] = sum(graphNodes[node][2].values())
+        dicNodeDegre[node] = 0
+    l = nodes.items()
+    l.sort(key=itemgetter(1),reverse=True)
+    if toPrint: 
+        print ""
+    for nodel in l:
+        node = nodel[0]
+        if toPrint: 
+            print "studying node",node,"   :",nodes[node]
+        # handling the case of a lonely node (no neighbours)
+        if not(node in dicNodeEdges):
+            if toPrint: 
+                print "lonely node"
+            continue
+        if toPrint: 
+            print "nombre d'arrêtes restantes:",len(dicNodeEdges[node])
+        n = nbEdgeToKeep
+        toremove = []
+        for edge in dicNodeEdges[node]:
+            if toPrint: 
+                print "  edge linking",int(edge[0]),"to",int(edge[1]) 
+                print "      value of",int(edge[0]),":",nodes[int(edge[0])]," - ",int(edge[1]),":",nodes[int(edge[1])]
+            # checking for previously settled edges
+            if dicEdgeState[edge]=="validated":
+                n-=1
+                toremove.append(edge)
+                if toPrint: 
+                    print " === Existing edge !!! restantes:",n
+            # removing deleted edges
+            elif dicEdgeState[edge]=="deleted":
+                toremove.append(edge)             
+        for edge in toremove:
+            dicNodeEdges[node].remove(edge)
+        if n==0:
+            continue
+        if n<0:
+            if toPrint: 
+                print "problème: un noeud a trop d'arrêtes",n,node
+                continue
+        i=0
+        if toPrint: 
+            print ""
+            print "arrêtes à valider:",n
+        while i < n:
+            if len(dicNodeEdges[node])==0:
+                if toPrint: 
+                    print "stop because no edge left"
+                break
+            maxvalue = 0
+            maxedge = None
+            for edge in dicNodeEdges[node]:
+                # conditions to keep an edge:
+                #   edge value must be superior to the current edge value
+                #   destination node must not be overloaded
+                #   destination node must not have an edge to an already connected node with bigger value
+                if graphEdges[edge][0]>maxvalue and graphEdges[edge][1]>maxvalue \
+                and dicNodeDegre[int(edge[1])]<nbEdgeToKeep and dicNodeDegre[int(edge[0])]<nbEdgeToKeep:
+                    maxvalue = graphEdges[edge][0]
+                    maxedge = edge
+            if maxvalue==0 and i==0:
+                if toPrint: 
+                    print "have to complete because no edge were left"
+                i=n
+#                 for edge in dicNodeEdges[node]:
+#                 # removing already completed nodes
+#                     if dicNodeDegre[int(edge[0])]<3 and dicNodeDegre[int(edge[1])]<3 and graphEdges[edge][1]>maxvalue:
+#                         maxvalue = graphEdges[edge][1]
+#                         maxedge = edge
+            if maxedge==None:
+                break
+            dicNodeEdges[node].remove(maxedge)
+            if toPrint: 
+                print " _ - _- _- Edge kept:",maxedge,graphEdges[maxedge][0]
+            dicEdgeState[maxedge] = "validated"
+            # increasing degre of concerned nodes
+            dicNodeDegre[int(maxedge[0])] +=1
+            dicNodeDegre[int(maxedge[1])] +=1      
+            i+=1
+        for edge in dicNodeEdges[node]:
+            graphEdges[edge][0] = 0
+            dicEdgeState[edge] = "deleted"
+        if toPrint: 
+            print "putting",len(dicNodeEdges[node]),"edges to 0"
+        if toPrint: 
+            try:
+                input("press Enter")
+            except SyntaxError:
+                pass
+    # removing edges with 0 values
+    toremove = []
+    for edge in graphEdges:
+        if dicEdgeState[edge] == "deleted":
+            toremove.append(edge)
+    print "removing",len(toremove),"over",len(graphEdges)
+    for edge in toremove:
+        del graphEdges[edge]
+    return (graphNodes,graphEdges)
+                
+def graphPostTreatmentEdges(graphNodes, graphEdges):
+
+        
+    return (graphNodes, graphEdges)
+            
 
 ''' experimental functions '''
 
@@ -232,9 +403,10 @@ def extractGraphFromSubset(subsetname):
     for entreprise in entreprises:
         compt = IOFunctions.updateProgress(compt)
         (dicIdNodes,graphNodes,graphEdges) = extractDescription(entreprise[2],entreprise[1], keywords, dicWordWeight, dicIdNodes, graphNodes, graphEdges)
+    (graphNodes, graphEdges) = graphPostTreatment1(graphNodes, graphEdges)
     print "... done"
     print "- saving graphs",
-    os.chdir(KeywordSubset.pathsubset+"/"+subsetname)
+    os.chdir(Constants.pathSubset+"/"+subsetname)
     IOFunctions.saveGraphEdge(graphEdges, "graphEdges.txt")
     IOFunctions.saveGraphNode(graphNodes, "graphNodes.txt")
     IOFunctions.saveGexfFile("graph.gexf", graphNodes, graphEdges)

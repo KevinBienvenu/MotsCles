@@ -197,7 +197,7 @@ def importKeywords(path = None):
     '''
     keywords = {}
     if path is None:
-        path = Constants.path
+        path = Constants.path+"/motscles"
     os.chdir(path)
     with codecs.open("keywords.txt","r","utf-8") as fichier:
         for line in fichier:
@@ -235,16 +235,17 @@ def saveGexfFile(filename, graphNodes, graphEdges):
         fichier.write("<edges>\n")
         i=0
         for edge in graphEdges:
-            fichier.write("<edge id=\"")
-            fichier.write(str(i))
-            fichier.write("\" source=\"")
-            fichier.write(str(edge[0]))
-            fichier.write("\" target=\"")
-            fichier.write(str(edge[1]))
-            fichier.write("\" type=\"undirected\" weight=\"")
-            fichier.write(str(3.0*graphEdges[edge][0]/graphEdges[edge][1]))
-            fichier.write("\"/>\n")
-            i+=1
+            if graphEdges[edge][0]>0:
+                fichier.write("<edge id=\"")
+                fichier.write(str(i))
+                fichier.write("\" source=\"")
+                fichier.write(str(edge[0]))
+                fichier.write("\" target=\"")
+                fichier.write(str(edge[1]))
+                fichier.write("\" type=\"undirected\" weight=\"")
+                fichier.write(str(graphEdges[edge][0]))
+                fichier.write("\"/>\n")
+                i+=1
         fichier.write("</edges>\n")
         fichier.write("</graph>\n")
         fichier.write("</gexf>")

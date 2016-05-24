@@ -1,278 +1,301 @@
 restaurant
-entreposage
-garages automobiles
-assistance
+distribution de programmes
+terres agricoles
+briquets
+ovins
+production de films
 administration de biens
-formation pour adultes
 boissons
 communication
+oeufs (production)
 conseil en informatique
-formation professionnelle
 articles de maison
-voip
-achat vente en ligne
+entreprise couverture
+fonds de fonds
 achat vente fonds de commerce
-maconnerie
-plantes à fleurs
-machines industrielles
+taxi
+vente au détail
+garagiste
+agence web
 marchés
 carrelage
-peintures pour bateaux
-avions de lignes
-livres
-supports d'impression
+production d'alcool
+climatisation
+vente par correspondance
 conseil en gestion
-domiciliation
 automobile
-electricien automobile
+commerce de gros de machines
 autres jus
-processus 
-recherche
-thermique
+travaux forestiers
 plomberie
 garde d'enfants
-recherche d'information
-traitement de surface
+export
+ventes aux enchères
 coiffure
-chauffagiste
-plastiques
-international 
+peintures industrielles
+systèmes distribution audio
+transmission de communication
 mise en pli
-assainissement
-produits laitiers
-machine à hot dog
-couvertures
-europe 
-achats 
-photographe
-fonds de fonds
-patrimoine immobilier
+consommables
+gestion de portefeuilles
+allumettes
+dépot vente
+combustibles
+production cinématographique
+commerce de gros
+algues
+fusion acquisition 
+administration
 vente sur internet
-maisons individuelles
-vidéo professionnelle
-achat vente d'animaux
-travaux de couverture
+parcs et jardins publics
+gestion de la paye 
+coupes fil
+arrosage automatique
 fax publics
-formations 
-boucherie charcuterie
-logiciel
-transformation industrielle 
-gestion des stocks
-recherche appliquée
-gestion de biens
-français 
-coordination
-traiteur
-service apres vente
-chargement
-cuisine
-annonces immobilières
-cours
-carburants automobiles
-centre de pmi
-biotechnologie agricole
-produits de beauté
-avocat
-commerce
-gadgets
-machines pour les plastiques
-démolition automobile
-soins de beauté
-futures
-ravalement
-meubles
-sanitaires
-vente à domicile
-produits dentaires
-conseil en production
-rectification
-pizzeria
-charpentes
-gestion
-charpente couverture
-plombier
-ustensiles de cuisine
-nettoyage
-produits divers
-produits en plastique
-mobile applications 
-presse
-espaces verts
-collecteurs d'espaces verts
-achat vente
-entreprise terrassement
-installation d'eau
-fournitures de bureau
-transpalettes tout terrains
-transformation 
-conseil en communication
-mobile 
-formation personnel de vente
-exploitation agricole
-fournitures scolaires
-garage
+centrales d'achat d'espace
+logiciels de communication ip
 achat vente à distance
-immobiliers agropastoraux
-transports d'automobiles
-ateliers
-plateformes de travail
-extraction
+français 
+viandes
+production de laine
+service apres vente
+nouveaux produits et services 
+radio
+jardinage à domicile
+site internet 
+centre de pmi
+fromages
+produits de beauté
+commerce
+voitures de tourisme
+autres bacs alimentaires
+production d'œufs
+ravalement
+entreprise de plomberie
+animaux
+vente de bois de chauffage
+couverture, toiture en chaume
+viande en gros
+conseil en production
+promotion du dialogue social 
+accessoires de mode
+gestion
+sisal
+linge
+biotechnologie
+commissionnaires
+magasin vêtement femme
+conseil en prestations
+avions de loisir
+articles textiles
+electricité
+magasins bio
+gestion de biens
+conciergerie
+droit immobilier 
+maroquinerie
+achat vente
+peintures de sols
+installation d'eau
+electricien
+production animale
+audit de site internet 
+livraison
+portefeuilles
+transformation 
+menuiserie bois
+salaisons
+sites internet d'information
+couvertures
+formation personnel de vente
+habillement
+bâtiment - travaux publics
+vente à domicile
+sols
+bois de chauffage
+avocat droit immobilier
+papier
+production de bois
+transport international
 alimentation
-boulangerie
 internet 
-travaux de terrassement
-tabacs
-menuiserie
-machines de pose menuiserie
+prévisions des ventes 
+web applications 
+pilotage
+entreprise de gros oeuvre
+paye 
 location de fonds de commerce
-réassurance automobile
-location de bureaux
-centre de soins infirmiers
-publicité
-location de bateaux
-illustrateurs
+aires de jeux
+planification de la production
+chauffage
+gps pour motos
+bijouterie
+formation
+achat vente d'animaux
 entretien
 entreprise tp
 acquisition de biens
+repasseuses
+espaces publicitaires
+revêtements murs et sols
 production
-pré impression
+plats
+charpente bois
 peinture
 vente
 maintenance
-vente par correspondance
-librairie
+conseil en marketing
+bricolage
 commercialisation 
 travaux
 chaussures
-terrassement
-conseil immobilier
+video production 
+produits pour la toilette
 fabrication
 conseil aux entreprises
-maintenance en laboratoire
-publication
-transport
+exploitation de sites web
+bovins
+viandes bovines
+conseil en communication
+autres huiles alimentaires
+immeubles
 francais 
-ensembles
-cuisine professionnelle
-conseil agricole
+solutions de gestion 
+gaz industriels
+logiciels de gestion de locaux
+ordinateurs
+jouets
+collecte d'eau
+production de spectacles
+magasin vêtement homme
 articles de tir
-administration de patrimoines
-calculatrices
-bijoux fantaisie
-marchand de biens
-travaux d'assainissement
-bazar
-carrosserie
-plantes
+entreprise terrassement
+location de voitures
+abricots
+toilettes
+recherche
+conseil en commercialisation
+vente de gravier
+gaz naturel
 bus de terrain
-construction
-bateaux
+maintenance informatique
 production informatique 
 location de terrains
 prises d'air
-gestion sous mandat
-autres accessoires de portes
-terrains agricoles
-marchand de vin
-viennoiseries
+magasin de loisirs créatifs
+luminaires
+liqueurs
+jeux
+coffrages
+meubles
+logiciels informatiques
+charcuterie
+transport de marchandises
+centre amincissement
 droit
-traitement des gaz
-fourrière automobile
-epicerie
+menuiserie
+spiritueux
+magasin de jeux vidéo
+vins
+courtier assurances
 holding
-communication interne
-formation continue
-chauffage
-lunettes
-charcuterie traiteur
-administration
+fourniture de services
+Étais de coffrages
+autres industries alimentaires
+acteurs
 service à la personne
+logiciels de gestion agricole
 jardinier
 domicile
-impression
-achat vente par correspondance
-fleurs
-immobilier location
-documentaires
+services sociaux
+vente à distance
+entreprise de peinture
 bijoux
-Équipements automobiles
-concessionnaire automobile
+charpentes
+services pour noms de domaine
 placements 
-conseil en finance
-achat
-chaudronnerie
-plats
+import export
+déchets de production
+services de gros oeuvres
+programmes radio
+abattage
 formation vente 
-electricité automobile
-immeubles
-gaz industriels
-casse automobile
+audio
+transport
+ensembles
+entreprises de travaux publics
+cadeaux
+voip
 gestion des droits
-expert automobile
-gardiennage
-transport de marchandises
-compositions florales
-confiserie
-diagnostics immobiliers
+viandes de volaille
+textile 
+murex 
+magasin
+vente d'électricité
 conseil
-enseignement
+site web 
+conseil en technologies 
+finance
 restauration rapide
-musique
-plombier chauffagiste
-boucherie traiteur
+paysagiste
+livraison à domicile
 boucherie
+couverture et toiture
+panneaux solaires thermiques
 promotion
 services aux entreprises
 services de garde
 restauration à emporter
-commissionnaires
-acquisition de données
-fonds de commerce
-climatisation automobiles
-ventilation
-architecture
-mobilité 
-parcs immobiliers
+production de champagne
+marketing vente 
+café
+cd et dvd tourisme
+marketing
+travaux publics
+panneaux solaires
 vente à emporter
+voitures
+gestion des prestations
 brasserie
 services en communication
-bus scolaires
-nettoyage - entretien
-véhicules tout terrains
-portail
-reprographie
-services en btp
-kebab
+conseil gestion et fiscal 
+bois
+dépôt vente
+soutien scolaire
+production de plumes
 distribution 
-motel
-laboratoire d'analyse
+produits divers
+logiciels de gestion
 transport routier
-agence web
-conception
-formation
+entreprise de plaquiste
+toitures
+publicité
 soins
-récuperation automobile
-video production 
-droguerie
-bureaux
-accessoires de vin
-transformation du sang
-charcuterie
-communication audiovisuelle 
+création de site internet
+cognac
+production d'électricité
+achat vente par correspondance
+joaillerie
+construction
+chauffeurs
+vente de volailles
+assurance
 informatique
 manutention
-voiries
-fournitures diverses
-papeterie
-conduits
-entreprises btp
-entretien espaces verts
-café
-location
-assurance automobile
-exploitation forestiere
-curage
-produits alimentaires
-accessoires de portes
+assistance
+charpente couverture
+fonds de commerce
+pour compte de tiers
+achat vente en ligne
 immobilier
-cours d'informatique
+location
+cadeaux vins et spiritueux
+achat
+import
+audiovisuel
+produits alimentaires
+conseil en gestion de projets
+terrassement
+convention des ventes 
+vente métaux
+volailler

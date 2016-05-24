@@ -15,13 +15,62 @@ import TextProcessing
 import GraphPreprocess
 import Constants
 
-
 path = Constants.path
 pathAgreg = Constants.pathAgreg
 pathSubset = Constants.pathSubset
 
 def extractRandomSubset(n=10, subsetname="extrait_entreprises"):
-    os.chdir(path)
+    os.chdir(pathAgreg)
+    print "== Extracting random subset of size",n
+    fileNameVec = ['BRep_Step2_0_1000000.csv', 
+               'BRep_Step2_1000000_2000000.csv', 
+               'BRep_Step2_2000000_3000000.csv',
+              'BRep_Step2_3000000_4000000.csv', 
+              'BRep_Step2_4000000_5000000.csv', 
+              'BRep_Step2_5000000_6000000.csv',
+              'BRep_Step2_6000000_7000000.csv', 
+              'BRep_Step2_7000000_8000000.csv', 
+              'BRep_Step2_8000000_9176180.csv']
+    entreprises = []
+    if n<9:
+        for i in range(n):
+            brepFile = fileNameVec[np.random.randint(0,9)]
+            csvfile = pd.read_csv(brepFile, usecols=['siren','codeNaf', 'description'])
+            csvfile = csvfile[csvfile.description.notnull()]
+            line = csvfile.iloc[np.random.randint(0,len(csvfile))]
+            entreprises.append([line[0],line[1],line[2]])
+            print str(i+1)+"/"+str(n)
+    else:
+        ndiv = (int)(n/9)
+        j = 0
+        for i in range(n):
+            if i%ndiv==0:
+                brepFile = fileNameVec[j]
+                j = min(j+1,8)
+                csvfile = pd.read_csv(brepFile, usecols=['siren','codeNaf', 'description'])
+                csvfile = csvfile[csvfile.description.notnull()]
+                print str(j)+"/"+str(9)   
+            line = csvfile.iloc[np.random.randint(0,len(csvfile))]
+            entreprises.append([line[0],line[1],line[2]])
+    os.chdir(pathSubset)
+    i=0
+    if subsetname not in os.listdir("."):
+        os.mkdir("./"+subsetname)
+    os.chdir("./"+subsetname)
+    with open("subset_entreprises.txt","w") as fichier:
+        for entreprise in entreprises:
+            fichier.write(""+str(entreprise[0]))
+            fichier.write("_"+str(entreprise[1])+"_")
+            fichier.write(entreprise[2])
+            fichier.write("\n")
+    keywords = createKeywords(entreprises, subsetname)
+#     printKeywordsSubset(entreprises = entreprises, keywords = keywords)
+    dicWordWeight = GraphPreprocess.generateWordWeight(keywords)
+    IOFunctions.saveDict(dicWordWeight, "dicWordWeight.txt")
+
+def extractSubsetFromCodeNAF(codeNAF, n=10):
+    subsetname = "extrait_NAF_"+codeNAF
+    os.chdir(pathAgreg)
     print "== Extracting random subset of size",n
     fileNameVec = ['BRep_Step2_0_1000000.csv', 
                'BRep_Step2_1000000_2000000.csv', 
@@ -34,9 +83,13 @@ def extractRandomSubset(n=10, subsetname="extrait_entreprises"):
               'BRep_Step2_8000000_9176180.csv']
     entreprises = []
     for i in range(n):
-        brepFile = fileNameVec[np.random.randint(0,9)]
-        csvfile = pd.read_csv(brepFile, usecols=['siren','codeNaf', 'description'])
-        csvfile = csvfile[csvfile.description.notnull()]
+        l = 0
+        while l==0:
+            brepFile = fileNameVec[np.random.randint(0,9)]
+            csvfile = pd.read_csv(brepFile, usecols=['siren','codeNaf', 'description'])
+            csvfile = csvfile[csvfile.description.notnull()]
+            csvfile = csvfile[csvfile.codeNaf.str.contains(codeNAF)==True]
+            l = len(csvfile)
         line = csvfile.iloc[np.random.randint(0,len(csvfile))]
         entreprises.append([line[0],line[1],line[2]])
         print str(i+1)+"/"+str(n)
@@ -55,6 +108,50 @@ def extractRandomSubset(n=10, subsetname="extrait_entreprises"):
 #     printKeywordsSubset(entreprises = entreprises, keywords = keywords)
     dicWordWeight = GraphPreprocess.generateWordWeight(keywords)
     IOFunctions.saveDict(dicWordWeight, "dicWordWeight.txt")
+ 
+def extractWholeSubsetFromCodeNAF(codeNAF):
+    subsetname = "extrait_NAF_"+codeNAF
+    os.chdir(pathAgreg)
+    print "== Extracting whole subset of codeNAf",codeNAF
+    fileNameVec = ['BRep_Step2_0_1000000.csv', 
+               'BRep_Step2_1000000_2000000.csv', 
+               'BRep_Step2_2000000_3000000.csv',
+              'BRep_Step2_3000000_4000000.csv', 
+              'BRep_Step2_4000000_5000000.csv', 
+              'BRep_Step2_5000000_6000000.csv',
+              'BRep_Step2_6000000_7000000.csv', 
+              'BRep_Step2_7000000_8000000.csv', 
+              'BRep_Step2_8000000_9176180.csv']
+    entreprises = []
+    nb = 0
+    for i in range(9):
+        brepFile = fileNameVec[i]
+        csvfile = pd.read_csv(brepFile, usecols=['siren','codeNaf', 'description'])
+        csvfile = csvfile[csvfile.description.notnull()]
+        csvfile = csvfile[csvfile.codeNaf.str.contains(codeNAF)==True]
+        for line in csvfile.values:
+            entreprises.append([line[0],line[1],line[2]])
+        print "= File done..",brepFile
+        print "    entreprises found :",str(len(entreprises)-nb)
+        nb=len(entreprises)
+    print ""
+    print "final number of entreprises:",len(entreprises)
+    os.chdir(pathSubset)
+    i=0
+    if subsetname not in os.listdir("."):
+        os.mkdir("./"+subsetname)
+    os.chdir("./"+subsetname)
+    with open("subset_entreprises.txt","w") as fichier:
+        for entreprise in entreprises:
+            fichier.write(""+str(entreprise[0]))
+            fichier.write("_"+str(entreprise[1])+"_")
+            fichier.write(entreprise[2])
+            fichier.write("\n")
+    keywords = createKeywords(entreprises, subsetname)
+#     printKeywordsSubset(entreprises = entreprises, keywords = keywords)
+    dicWordWeight = GraphPreprocess.generateWordWeight(keywords)
+    IOFunctions.saveDict(dicWordWeight, "dicWordWeight.txt")
+
     
 def importSubset(subsetname):
     '''

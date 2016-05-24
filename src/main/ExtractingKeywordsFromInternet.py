@@ -175,9 +175,9 @@ def cleanMotsCles(filename):
         nbmaxword = 5
         if len(keyword.split(" "))>nbmaxword:
             continue
-        # criteria : first word is 'autre' or 'autres'
+        # criteria : first word is 'autre' or 'entreprise'
         word = keyword.split(" ")[0]
-        if word=="autre" or keyword=="autres":
+        if word=="autre" or word=="autres" or word=="entreprise" or word=="entreprises":
             continue
         # criteria : remove double "mot-mot" and "mot mot"
         flag = False
