@@ -184,7 +184,17 @@ def extractWholeSubset(subsetname="completeGraph"):
             fichier.write("_"+str(entreprise[1])+"_")
             fichier.write(entreprise[2])
             fichier.write("\n")
-    keywords = createKeywords(entreprises, subsetname)
+    os.chdir(Constants.path+"/motscles")
+    # creating keywords file by copying global keywords file
+    lines = []
+    with open("keywords.txt","r") as fichier:
+        for line in fichier:
+            lines.append(line)
+    os.chdir(pathSubset+"/"+subsetname)
+    with open("keywords.txt","w") as fichier:
+        for line in lines:
+            fichier.write(line)
+    keywords = IOFunctions.importKeywords(".")
     dicWordWeight = GraphPreprocess.generateWordWeight(keywords)
     IOFunctions.saveDict(dicWordWeight, "dicWordWeight.txt")
     

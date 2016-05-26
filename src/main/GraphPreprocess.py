@@ -305,7 +305,7 @@ def graphPostTreatmentEdges(graphNodes, graphEdges):
 
 ''' experimental functions '''
 
-def extractKeywords(codeNAF, graphNodes):
+def extractKeywordsFromNAF(codeNAF, graphNodes):
     '''
     experimental function that return the 10 first keywords for a particular codeNAF
     '''

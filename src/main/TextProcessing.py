@@ -127,7 +127,7 @@ def extractKeywordsFromString(string, keywords, dicWordWeight, toPrint=False):
         if keyword=='.' or keyword==",":
             continue
         v = getProbKeywordInDescription(keyword, keywords[keyword], stemmedDesc, dicWordWeight)
-        if v>0.60:
+        if v>0.00:
             dic[keyword] = v
     if toPrint:
         print "Analyzing string:"
