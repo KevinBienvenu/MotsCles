@@ -32,14 +32,16 @@ pathSubset = Constants.pathSubset
 #             compt+=1
 #     print compt
 
+KeywordSubset.extractWholeSubset("graphcomplet")
+
 # size = 100
 # KeywordSubset.extractRandomSubset(size, "extrait_"+str(size))
 # GraphPreprocess.extractGraphFromSubset("extrait_"+str(size))
 
-codeNAF = "4120A"
-KeywordSubset.extractSubsetFromCodeNAF(codeNAF, 50)
+# codeNAF = "4120A"
+# KeywordSubset.extractSubsetFromCodeNAF(codeNAF, 50)
 # KeywordSubset.extractWholeSubsetFromCodeNAF(codeNAF)
-GraphPreprocess.extractGraphFromSubset("extrait_NAF_"+codeNAF,)
+# GraphPreprocess.extractGraphFromSubset("extrait_NAF_"+codeNAF,)
 
 # os.chdir(path+"/motscles")
 # ExtractingKeywordsFromInternet.cleanMotsCles("keywords.txt")

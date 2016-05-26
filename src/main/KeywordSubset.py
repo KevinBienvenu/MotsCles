@@ -152,6 +152,41 @@ def extractWholeSubsetFromCodeNAF(codeNAF):
     dicWordWeight = GraphPreprocess.generateWordWeight(keywords)
     IOFunctions.saveDict(dicWordWeight, "dicWordWeight.txt")
 
+def extractWholeSubset(subsetname="completeGraph"):
+    os.chdir(pathAgreg)
+    print "== Extracting whole subset of description"
+    fileNameVec = ['BRep_Step2_0_1000000.csv', 
+               'BRep_Step2_1000000_2000000.csv', 
+               'BRep_Step2_2000000_3000000.csv',
+              'BRep_Step2_3000000_4000000.csv', 
+              'BRep_Step2_4000000_5000000.csv', 
+              'BRep_Step2_5000000_6000000.csv',
+              'BRep_Step2_6000000_7000000.csv', 
+              'BRep_Step2_7000000_8000000.csv', 
+              'BRep_Step2_8000000_9176180.csv']
+    entreprises = []
+    for brepFile in fileNameVec:
+        print "     extracting",brepFile
+        csvfile = pd.read_csv(brepFile, usecols=['siren','codeNaf', 'description'])
+        csvfile = csvfile[csvfile.description.notnull()] 
+        for line in csvfile.itertuples():
+            entreprises.append([line[0],line[1],line[2]])
+    print "... done"
+    os.chdir(pathSubset)
+    if subsetname not in os.listdir("."):
+        os.mkdir("./"+subsetname)
+    os.chdir("./"+subsetname)
+    compt = IOFunctions.initProgress(entreprises,1)
+    with open("subset_entreprises.txt","w") as fichier:
+        for entreprise in entreprises:
+            compt = IOFunctions.updateProgress(compt)
+            fichier.write(""+str(entreprise[0]))
+            fichier.write("_"+str(entreprise[1])+"_")
+            fichier.write(entreprise[2])
+            fichier.write("\n")
+    keywords = createKeywords(entreprises, subsetname)
+    dicWordWeight = GraphPreprocess.generateWordWeight(keywords)
+    IOFunctions.saveDict(dicWordWeight, "dicWordWeight.txt")
     
 def importSubset(subsetname):
     '''
