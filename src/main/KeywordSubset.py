@@ -14,6 +14,7 @@ import IOFunctions
 import TextProcessing
 import GraphPreprocess
 import Constants
+from main.Constants import pathCodeNAF
 
 path = Constants.path
 pathAgreg = Constants.pathAgreg
@@ -71,7 +72,7 @@ def extractRandomSubset(n=10, subsetname="extrait_entreprises"):
 def extractSubsetFromCodeNAF(codeNAF, n=10):
     subsetname = "extrait_NAF_"+codeNAF
     os.chdir(pathAgreg)
-    print "== Extracting random subset of size",n
+    print "== Extracting random subset of size",n,"for codeNAF:",codeNAF
     fileNameVec = ['BRep_Step2_0_1000000.csv', 
                'BRep_Step2_1000000_2000000.csv', 
                'BRep_Step2_2000000_3000000.csv',
@@ -82,18 +83,32 @@ def extractSubsetFromCodeNAF(codeNAF, n=10):
               'BRep_Step2_7000000_8000000.csv', 
               'BRep_Step2_8000000_9176180.csv']
     entreprises = []
-    for i in range(n):
-        l = 0
-        while l==0:
-            brepFile = fileNameVec[np.random.randint(0,9)]
+    if n<100:
+        for i in range(n):
+            l = 0
+            while l==0:
+                brepFile = fileNameVec[np.random.randint(0,9)]
+                csvfile = pd.read_csv(brepFile, usecols=['siren','codeNaf', 'description'])
+                csvfile = csvfile[csvfile.description.notnull()]
+                csvfile = csvfile[csvfile.codeNaf.str.contains(codeNAF)==True]
+                l = len(csvfile)
+            line = csvfile.iloc[np.random.randint(0,len(csvfile))]
+            entreprises.append([line[0],line[1],line[2]])
+            print str(i+1)+"/"+str(n)
+    else:
+        for brepFile in fileNameVec:
+            print ".",
             csvfile = pd.read_csv(brepFile, usecols=['siren','codeNaf', 'description'])
             csvfile = csvfile[csvfile.description.notnull()]
             csvfile = csvfile[csvfile.codeNaf.str.contains(codeNAF)==True]
-            l = len(csvfile)
-        line = csvfile.iloc[np.random.randint(0,len(csvfile))]
-        entreprises.append([line[0],line[1],line[2]])
-        print str(i+1)+"/"+str(n)
-    os.chdir(pathSubset)
+            i=0
+            for line in csvfile.itertuples():
+                entreprises.append([line[1],line[2],line[3]]) 
+                i+=1
+                if i>=int(n/9):
+                    break
+    print "... done:",len(entreprises),"entreprises selected"         
+    os.chdir(pathCodeNAF)
     i=0
     if subsetname not in os.listdir("."):
         os.mkdir("./"+subsetname)
@@ -198,7 +213,7 @@ def extractWholeSubset(subsetname="completeGraph"):
     dicWordWeight = GraphPreprocess.generateWordWeight(keywords)
     IOFunctions.saveDict(dicWordWeight, "dicWordWeight.txt")
     
-def importSubset(subsetname):
+def importSubset(subsetname, path=Constants.pathSubset):
     '''
     function that imports a previously computed subset 
     and puts it into the array entreprises
@@ -209,7 +224,7 @@ def importSubset(subsetname):
     keywords : dic of keywords
     '''
     # importing file
-    os.chdir(pathSubset)
+    os.chdir(path)
     if not(subsetname in os.listdir(".")):
         print "non-existing subset"
         return (None,None)

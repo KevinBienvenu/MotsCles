@@ -92,7 +92,11 @@ def addNodeValues(name, dicIdNodes, graphNodes, codeNAF="", valueNAF=0, generici
         graphNodes[dicIdNodes[name]][1] = g
     return (dicIdNodes, graphNodes)
 
-def extractDescription(desc,codeNAF,keywords, dicWordWeight, dicIdNodes, graphNodes, graphEdges):
+def extractDescription(desc,codeNAF,
+                       keywords, dicWordWeight, 
+                       dicIdNodes, graphNodes, graphEdges,
+                       french_stopwords,
+                       stem ):
     '''
     function that extracts the content of a description and fills the graph.
     extraction of the keywords ?
@@ -109,7 +113,7 @@ def extractDescription(desc,codeNAF,keywords, dicWordWeight, dicIdNodes, graphNo
     graphNodes :
     graphEdges :
     '''
-    listKeywords = TextProcessing.extractKeywordsFromString(desc,keywords, dicWordWeight)
+    listKeywords = TextProcessing.extractKeywordsFromString(desc,keywords, dicWordWeight, french_stopwords, stem)
     for k in listKeywords:
         (dicIdNodes, graphNodes) = addNodeValues(k, dicIdNodes, graphNodes,codeNAF=codeNAF, valueNAF=listKeywords[k])
     for k in listKeywords:
@@ -399,10 +403,18 @@ def extractGraphFromSubset(subsetname):
     graphEdges = {}
     dicIdNodes = {}
     print "- analyzing entreprises"
-    compt = IOFunctions.initProgress(entreprises, 10)
+    compt = IOFunctions.initProgress(entreprises, 0.1)
+    # creating stemmerizer and stopwords
+    from nltk.corpus import stopwords
+    import nltk.stem.snowball
+    french_stopwords = set(stopwords.words('french')),
+    stem = nltk.stem.snowball.FrenchStemmer()
     for entreprise in entreprises:
         compt = IOFunctions.updateProgress(compt)
-        (dicIdNodes,graphNodes,graphEdges) = extractDescription(entreprise[2],entreprise[1], keywords, dicWordWeight, dicIdNodes, graphNodes, graphEdges)
+        (dicIdNodes,graphNodes,graphEdges) = extractDescription(entreprise[2],entreprise[1], 
+                                                                keywords, dicWordWeight, 
+                                                                dicIdNodes, graphNodes, graphEdges,
+                                                                french_stopwords, stem)
     (graphNodes, graphEdges) = graphPostTreatment1(graphNodes, graphEdges)
     print "... done"
     print "- saving graphs",

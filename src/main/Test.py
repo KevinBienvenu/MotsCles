@@ -11,7 +11,7 @@ import  ExtractingKeywordsFromInternet
 import  os
 import  IOFunctions
 import Constants
-from main import TextProcessing
+from main import TextProcessing, ScriptFunctions
 
 
 path = Constants.path
@@ -32,7 +32,7 @@ pathSubset = Constants.pathSubset
 #             compt+=1
 #     print compt
 
-KeywordSubset.extractWholeSubset("graphcomplet")
+ScriptFunctions.computeNAFSubsets()
 
 # size = 100
 # KeywordSubset.extractRandomSubset(size, "extrait_"+str(size))

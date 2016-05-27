@@ -339,6 +339,8 @@ def updateProgress(compt):
         percent+=deltap
         if deltap==1 and percent%10==0:
             print ""
+        if deltap==0.1 and ((int)(percent*10))%10==0:
+            print ""
     compt = (i,percent,total,deltap)
     return compt               
                     

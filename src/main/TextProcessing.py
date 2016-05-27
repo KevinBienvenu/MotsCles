@@ -47,18 +47,21 @@ def tokenizeFromArrayOfTxt(array, toDisplay=False):
             lines.append(nltkprocess(str(stri[0]).decode("utf-8")))
     return lines
 
-def nltkprocess(srctxt, keepComa = False):
+def nltkprocess(srctxt, 
+                keepComa = False, 
+                french_stopwords = set(stopwords.words('french')),
+                stem = nltk.stem.snowball.FrenchStemmer()):
     '''
     NLP function that transform a string into an array of stemerized tokens
     The punctionaction, stopwords and numbers are also removed as long as words shorter than 3 characters
     -- IN:
     srctxt : the string text to process (string)
     keepComa : boolean that settles if the process should keep comas/points during the process (boolean) default=false
+    french_stopwords : set of french stop_words
+    stem : stemmerizer
     -- OUT:
     stems : array of stemerized tokens (array[token]) 
     '''
-    french_stopwords = set(stopwords.words('french'))
-    stem = nltk.stem.snowball.FrenchStemmer()
     try:
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
@@ -72,6 +75,7 @@ def nltkprocess(srctxt, keepComa = False):
     stems = []
     for token in tokens:
         try:
+            # removing numbers
             float(token)
         except:
             if token[0:2]=="d'":
@@ -111,7 +115,12 @@ def computeDictToken(lines, dictToken = {}):
             del dictToken[toR]
     return dictToken
 
-def extractKeywordsFromString(string, keywords, dicWordWeight, toPrint=False):
+def extractKeywordsFromString(string, 
+                              keywords, 
+                              dicWordWeight,
+                              french_stopwords,
+                              stem, 
+                              toPrint=False):
     '''
     function that returns a list of keywords out of a description
     -- IN
@@ -122,7 +131,7 @@ def extractKeywordsFromString(string, keywords, dicWordWeight, toPrint=False):
     dic : dic of keywords which values are the importance of the keyword (dic{str:float})
     '''
     dic = {}
-    stemmedDesc = nltkprocess(string,keepComa=True)
+    stemmedDesc = nltkprocess(string,keepComa=True, french_stopwords=french_stopwords, stem=stem)
     for keyword in keywords:
         if keyword=='.' or keyword==",":
             continue

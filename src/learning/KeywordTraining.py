@@ -23,7 +23,6 @@ def suggestKeyword(description, codeNAF):
     ## STEP 1 = Extracting only from description
     keywordFromDesc = TextProcessing.extractKeywordsFromString(description, keywords, dicWordWeight, False)
     ## STEP 2 = Extracting only from codeNAF
-    keywordFromNAF = GraphPreprocess.extractKeywordsFromNAF(codeNAF, graphNodes)
     
     # merging previous dictionaries
     dicKeywords = {}
